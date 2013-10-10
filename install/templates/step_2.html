@@ -1,0 +1,205 @@
+<?php if(!defined('IN_INSTALL')) exit('Request Error!'); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PHPMyWind 安装向导 - 配置数据文件</title>
+<link href="templates/style/install.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="templates/js/jquery.min.js"></script>
+<script type="text/javascript">
+function CheckForm()
+{
+
+	var format = /^[a-zA-Z0-9_@!.-]+$/;
+
+	if(document.getElementById("dbinfo[dbhost]").value == "")
+	{
+		alert("请输入数据库服务器！");
+		document.getElementById("dbinfo[dbhost]").focus();
+		return false;
+	}
+	if(document.getElementById("dbinfo[dbname]").value == "")
+	{
+		alert("请输入数据库名！");
+		document.getElementById("dbinfo[dbname]").focus();
+		return false;
+	}
+	if(!format.exec(document.getElementById("dbinfo[dbname]").value))
+	{
+		alert("数据库名非法！请使用[a-zA-Z0-9_@!.-]内的字符！！");
+		document.getElementById("dbinfo[dbname]").focus();
+		return false;
+	}
+	if(document.getElementById("dbinfo[dbuser]").value == "")
+	{
+        alert ("请输入数据库用户！");
+       	document.getElementById("dbinfo[dbuser]").focus();
+        return false;
+    }
+	if(document.getElementById("admininfo[username]").value == "")
+	{
+		alert("请输入管理员账号！");
+		document.getElementById("admininfo[username]").focus();
+		return false;
+	}
+	if(document.getElementById("admininfo[username]").value.length<5 || document.getElementById("admininfo[username]").value.length>20)
+	{
+		alert("用户名长度不得小于5位或大于20位！");
+		document.getElementById("admininfo[username]").focus();
+		return false;
+	}
+	if(document.getElementById("admininfo[password]").value == "")
+	{
+		alert("请输入管理员密码！");
+		document.getElementById("admininfo[password]").focus();
+		return false;
+	}
+	if(document.getElementById("admininfo[password]").value.length<5 || document.getElementById("admininfo[password]").value.length>16)
+	{
+		alert("密码由5-16个字符组成，区分大小写！");
+		document.getElementById("admininfo[password]").focus();
+		return false;
+	}
+	
+	if(document.getElementById("admininfo[password2]").value == "")
+	{
+        alert("请输入重复密码！");
+       	document.getElementById("admininfo[password2]").focus();
+        return false;
+    }
+	if(document.getElementById("admininfo[password]").value != document.getElementById("admininfo[password2]").value)
+	{
+        alert("两次密码不同！");
+        document.getElementById("admininfo[password2]").focus();
+        return false;
+    }
+
+	if(document.getElementById("cpw").value == "")
+	{
+        var dbhost = document.getElementById("dbinfo[dbhost]").value;
+		var dbuser = document.getElementById("dbinfo[dbuser]").value;
+		var dbpw   = document.getElementById("dbinfo[dbpw]").value;
+	
+		$.ajax({
+			url        : 'index.php?s=15271'+'&dbhost='+dbhost+'&dbuser='+dbuser+'&dbpw='+dbpw,
+			type       : 'get',
+			dataType   : 'html',
+			success    : function(data){
+				if(data == 'true') {
+					$('#re_dbpw').html('<span class="install_true" style="margin-left:22px;">可用</span>');
+					$('#cpw').val("true");
+
+					//验证没有问题，提交表单
+					document.form.submit();
+					return;
+				} else {
+					$('#re_dbpw').html('<span class="install_false" style="margin-left:22px;">不可用</span>');
+					$('#cpw').val("false");
+					document.getElementById("dbinfo[password]").focus();
+					return false;
+				}
+			}
+		});
+	}
+	
+	if(document.getElementById("cpw").value != "true")
+	{
+		document.getElementById("dbinfo[password]").focus();
+        return false;
+	}
+
+	//验证没有问题，提交表单
+	document.form.submit();
+}
+
+
+function CheckPwd()
+{
+	var dbhost = document.getElementById("dbinfo[dbhost]").value;
+	var dbuser = document.getElementById("dbinfo[dbuser]").value;
+	var dbpw   = document.getElementById("dbinfo[dbpw]").value;
+
+	$.ajax({
+		url        : 'index.php?s=15271'+'&dbhost='+dbhost+'&dbuser='+dbuser+'&dbpw='+dbpw,
+		type       : 'get',
+		dataType   : 'html',
+		success    : function(data){
+			if(data == 'true') {
+				$('#re_dbpw').html('<span class="install_true" style="margin-left:22px;">可用</span>');
+				$('#cpw').val("true");
+			} else {
+				$('#re_dbpw').html('<span class="install_false" style="margin-left:22px;">不可用</span>');
+				$('#cpw').val("false");
+			}
+		}
+	});
+
+}
+</script>
+</head>
+<body>
+<div class="header">
+		<div class="step_area"><img src="templates/images/set_db.png" /></div>
+</div>
+<div class="mainbody">
+		<div class="step_sgin"><img src="templates/images/step_sgin_second.png" /></div>
+		<h2 class="install_title">填写数据库信息</h2>
+		<form name="form" id="form" method="post" action="index.php">
+				<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+						<tr>
+								<th width="25%" height="30" align="right">数据库服务器：</th>
+								<td><input value="localhost" type="text" name="dbinfo[dbhost]" id="dbinfo[dbhost]" class="class_input" />
+										<span class="cnote">数据库服务器地址, 一般为 localhost</span></td>
+						</tr>
+						<tr>
+								<th height="30" align="right">数据库名称：</th>
+								<td><input value="phpmywind_db" type="text" name="dbinfo[dbname]" id="dbinfo[dbname]" class="class_input" /></td>
+						</tr>
+						<tr>
+								<th height="30" align="right">数据库用户：</th>
+								<td><input value="root" type="text" name="dbinfo[dbuser]" id="dbinfo[dbuser]" class="class_input" /></td>
+						</tr>
+						<tr>
+								<th height="30" align="right">数据库密码：</th>
+								<td><input type="password" name="dbinfo[dbpw]" id="dbinfo[dbpw]" class="class_input" onblur="CheckPwd()" />
+										<span id="re_dbpw"></span>
+										<input type="hidden" name="cpw" id="cpw"></td>
+						</tr>
+						<tr>
+								<th height="30" align="right">数据表前缀：</th>
+								<td><input value="pmw_" type="text" name="dbinfo[tablepre]" id="dbinfo[tablepre]" class="class_input" />
+										<span class="cnote">同一数据库运行多个程序时，请修改前缀</span></td>
+						</tr>
+				</table>
+				<h2 class="install_title">填写管理员信息</h2>
+				<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+						<tr>
+								<th width="25%" height="30" align="right">管理员账号：</th>
+								<td><input value="admin" type="text" name="admininfo[username]" id="admininfo[username]" class="class_input" /></td>
+						</tr>
+						<tr>
+								<th height="30" align="right">管理员密码：</th>
+								<td><input value="" type="password" name="admininfo[password]" id="admininfo[password]" class="class_input" />
+						</td>
+						</tr>
+						<tr>
+								<th height="30" align="right">重复密码：</th>
+								<td><input value="" type="password" name="admininfo[password2]" id="admininfo[password2]" class="class_input" /></td>
+						</tr>
+						<tr>
+								<th height="30" align="right">安装测试数据：</th>
+								<td><input value="true" checked="checked" type="checkbox" name="admininfo[testdata]" style="margin-left:5px;" />
+										是</td>
+						</tr>
+				</table>
+				<div class="inst_btn_area">
+						<a href="javascript:void(0);" onclick="CheckForm();return false;">下一步</a>
+						&nbsp;
+						<a href="javascript:void(0);" onclick="history.go(-1);return false;">返　回</a>
+						<input type="hidden" name="s" id="s" value="3">
+				</div>
+		</form>
+</div>
+<div class="footer">© 2010-2013 phpMyWind.com</div>
+</body>
+</html>

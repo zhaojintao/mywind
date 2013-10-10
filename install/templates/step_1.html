@@ -1,0 +1,128 @@
+<?php if(!defined('IN_INSTALL')) exit('Request Error!'); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PHPMyWind 安装向导 - 检测安装环境</title>
+<link href="templates/style/install.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div class="header">
+		<div class="step_area"><img src="templates/images/check_install.png" /></div>
+</div>
+<div class="mainbody">
+		<div class="step_sgin"><img src="templates/images/step_sgin_first.png" /></div>
+		<h2 class="install_title">环境检查</h2>
+		<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+				<tr class="install_sub_title">
+						<th width="25%" height="30" align="left">项目</th>
+						<th width="30%" align="left">所需配置</th>
+						<th width="30%" align="left">推荐配置</th>
+						<th width="15%" align="left">当前服务器</th>
+				</tr>
+				<tr>
+						<td height="24">操作系统</td>
+						<td>不限制</td>
+						<td>类Unix</td>
+						<td><?php echo PHP_OS; ?></td>
+				</tr>
+				<tr>
+						<td height="24">PHP 版本</td>
+						<td>4.0</td>
+						<td>5.0</td>
+						<td><?php echo PHP_VERSION; ?></td>
+				</tr>
+				<tr>
+						<td height="24">附件上传</td>
+						<td>不限制</td>
+						<td>2M</td>
+						<td><?php echo get_cfg_var("upload_max_filesize")?get_cfg_var("upload_max_filesize"):"不允许上传附件"?></td>
+				</tr>
+				<tr>
+						<td height="24">GD 库</td>
+						<td>1.0</td>
+						<td>2.0</td>
+						<td>
+						<?php
+						$tmp = function_exists('gd_info') ? gd_info() : array();
+						@$env_items[$key]['current'] = empty($tmp['GD Version']) ? 'noext' : $tmp['GD Version'];
+						echo @$env_items[$key]['current'];
+						unset($tmp);
+						?></td>
+				</tr>
+				<tr>
+						<td height="24">磁盘空间</td>
+						<td>10M</td>
+						<td>不限制</td>
+						<td><?php
+						if(function_exists('disk_free_space')) {
+							@$env_items[$key]['current'] = floor(disk_free_space('../') / (1024*1024)).'M';
+						}
+						else{
+							$env_items[$key]['current'] = 'unknow';
+						}
+						echo @$env_items[$key]['current'];
+						?></td>
+				</tr>
+		</table>
+		<h2 class="install_title">目录、文件权限检查</h2>
+		<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+				<tr class="install_sub_title">
+						<th width="55%" height="30" align="left">目录文件</th>
+						<th width="30%" align="left">所需状态</th>
+						<th width="15%" align="left">当前状态</th>
+				</tr>
+				<?php
+				foreach($iswrite_array as $w)
+				{
+				?>
+				<tr>
+						<td height="24"><?php echo $w; ?></td>
+						<td style="color:#999;">可写</td>
+						<td><?php ck_iswrite("../$w"); ?></td>
+				</tr>
+				<?php
+				}
+				?>
+		</table>
+		<h2 class="install_title">函数依赖性检查</h2>
+		<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+				<tr class="install_sub_title">
+						<th width="55%" height="30" align="left">函数名称</th>
+						<th width="30%" align="left">检查结果</th>
+						<th width="15%" align="left">建议</th>
+				</tr>
+				<?php
+				foreach($exists_array as $f)
+				{
+				?>
+				<tr>
+						<td height="24"><?php echo $f; ?>()</td>
+						<td><?php funexists("$f"); ?></td>
+						<td><?php funadvice("$f"); ?></td>
+				</tr>
+				<?php
+				}
+				?>
+		</table>
+		<div class="inst_btn_area">
+				<form name="form" method="post" action="index.php" >
+						<?php
+						if(@$isnext != 'N')
+						{
+							echo '<a href="javascript:void(0);" onclick="form.submit();return false;">下一步</a>';
+						}
+						else
+						{
+							echo '<a href="javascript:void(0);">请修复</a>';
+						}
+						?>
+						&nbsp;
+						<a href="javascript:void(0);" onclick="history.go(-1);return false;">返　回</a>
+						<input type="hidden" name="s" id="s" value="2">
+				</form>
+		</div>
+</div>
+<div class="footer">© 2010-2013 phpMyWind.com</div>
+</body>
+</html>

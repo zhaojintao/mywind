@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+/*全局控制*/
+body{margin:0;padding:0;font-size:12px;font-family:"微软雅黑",Verdana,"宋体";background:url(../images/bg_body.png) repeat-x;overflow-y:scroll;*overflow-y:hidden;}
+html,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select{font-size:12px;font-family:"微软雅黑",Arial;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#000;text-decoration:none;}a:hover{color:#000;text-decoration:underline;}a:focus{outline:none;}
+.hr_8,.hr_10{font-size:1px;line-height:1px;clear:both;_overflow:hidden;}
+.hr_8{height:8px;}.hr_10{height:10px;}
+
+
+/*头部区域*/
+.header,.mainbody,.footer{width:800px;margin:0 auto;}
+.header{height:110px;background:url(../images/logo.png) no-repeat 20px 45px;}
+.header .step_area{width:180px;height:17px;float:right;margin:58px 10px 0 0;text-align:right;}
+
+
+/*内容区域*/
+.agreement_area{height:290px;padding-top:30px;background:url(../images/content_bg.gif) no-repeat;}
+.agreement{width:720px;height:230px;padding:10px;margin:0 auto;overflow:auto;border:1px solid #eee;background:#fff;line-height:22px;}
+.agreement{color:#333;}
+.agreement h3{font-size:14px;text-align:center;margin-bottom:5px;color:#333;}
+.agreement h4{font-size:12px;margin:10px 0 5px 0;color:#333;}
+
+
+.mainbody h2.install_title{padding:20px 0 8px 15px;font-size:14px;color:#666;}
+.mainbody .install_sub_title{color:#6ca1b4;}
+.install_true{background:url(../images/check_true.png) no-repeat right center;color:#69cc18;padding-right:20px;}
+.install_false{background:url(../images/check_false.png) no-repeat right center;color:#e5500d;padding-right:17px;}
+.class_input{width:240px;height:18px;line-height:18px;background:url(../images/input_class_bg.jpg) repeat-x;border:1px solid #7cc2ed;text-indent:2px;margin-left:5px;}
+.cnote{margin-left:20px;color:#999;}
+
+
+.inst_btn_area{margin-top:30px;text-align:center;}
+.inst_btn_area a{display:inline-block;width:78px;height:25px;line-height:25px;background:url(../images/inst_btn.gif);text-align:center;font-family:"宋体";font-size:14px;overflow:hidden;cursor:pointer;}
+.inst_btn_area a:hover{text-decoration:none;}
+
+
+.install_ok{width:410px;background:url(../images/install_ok.png) no-repeat;margin:50px auto 0 auto;}
+.install_ok_txt{padding:90px 0 0 95px;line-height:22px;}
+.install_ok_txt span{color:#999;padding:0 5px;}
+.install_ok_txt a{text-decoration:underline;}
+.install_ok_note{margin-top:20px;color:#6ca1b4;}
+.install_alr{width:410px;background:url(../images/install_alr.png) no-repeat;margin:50px auto 0 auto;}
+
+
+/*页脚区域*/
+.footer{padding:30px 0 30px 0;color:#ccc;text-align:center;font-family:Verdana;}
