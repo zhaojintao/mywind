@@ -1,0 +1,95 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   contact.php
+#	modified:   data/alipay/alipay.config.php
+#	modified:   data/alipay/alipayapi.php
+#	modified:   data/alipay/lib/alipay_core.function.php
+#	modified:   data/alipay/lib/alipay_md5.function.php
+#	modified:   data/alipay/lib/alipay_notify.class.php
+#	modified:   data/alipay/lib/alipay_submit.class.php
+#	modified:   data/alipay/notify_url.php
+#	modified:   data/alipay/return_url.php
+#	modified:   data/avatar/index.php
+#	modified:   data/avatar/lib/Controller/AvatarFlashUpload.php
+#	modified:   data/avatar/lib/Controller/Base.php
+#	modified:   data/avatar/lib/Inter/Error.php
+#	modified:   data/avatar/lib/common.php
+#	modified:   data/avatar/lib/config.php
+#	modified:   data/avatar/upload.php
+#	modified:   data/captcha/ckstr.php
+#	modified:   data/error/mysql_error_trace.php
+#	modified:   data/httpfile/down.class.php
+#	modified:   data/httpfile/upload.class.php
+#	modified:   data/watermark/watermark.class.php
+#	modified:   footer.php
+#	modified:   goods.php
+#	modified:   goodsshow.php
+#	modified:   header.php
+#	modified:   include/common.func.php
+#	modified:   include/common.inc.php
+#	modified:   include/config.cache.php
+#	modified:   include/config.inc.php
+#	modified:   include/conn.inc.php
+#	modified:   include/func.class.php
+#	modified:   include/mysql.class.php
+#	modified:   include/mysqli.class.php
+#	modified:   include/page.class.php
+#	modified:   index.php
+#	modified:   install/data/conn.tpl.php
+#	modified:   install/data/install_data.txt
+#	modified:   install/data/install_struct.txt
+#	modified:   install/data/install_testdata.txt
+#	modified:   install/index.php
+#	modified:   install/templates/step_0.html
+#	modified:   install/templates/step_1.html
+#	modified:   install/templates/step_2.html
+#	modified:   install/templates/step_3.html
+#	modified:   install/templates/step_4.html
+#	modified:   install/templates/step_5.html
+#	modified:   install/templates/style/install.css
+#	modified:   join.php
+#	modified:   joinshow.php
+#	modified:   lefter.php
+#	modified:   member.php
+#	modified:   message.php
+#	modified:   news.php
+#	modified:   newsshow.php
+#	modified:   order.php
+#	modified:   orderpay.php
+#	modified:   product.php
+#	modified:   productshow.php
+#	modified:   shoppingcart.php
+#	modified:   soft.php
+#	modified:   softshow.php
+#	modified:   templates/default/js/comment.js
+#	modified:   templates/default/js/getarea.js
+#	modified:   templates/default/js/member.js
+#	modified:   templates/default/js/slideplay.js
+#	modified:   templates/default/member/avatar.php
+#	modified:   templates/default/member/comment.php
+#	modified:   templates/default/member/default.php
+#	modified:   templates/default/member/edit.php
+#	modified:   templates/default/member/favorite.php
+#	modified:   templates/default/member/findpwd.php
+#	modified:   templates/default/member/findpwd2.php
+#	modified:   templates/default/member/findpwd3.php
+#	modified:   templates/default/member/left.php
+#	modified:   templates/default/member/login.php
+#	modified:   templates/default/member/msg.php
+#	modified:   templates/default/member/order.php
+#	modified:   templates/default/member/ordershow.php
+#	modified:   templates/default/member/reg.php
+#	modified:   templates/default/mobile/footer.php
+#	modified:   templates/default/mobile/index.php
+#	modified:   templates/default/mobile/show.php
+#	modified:   vote.php
+#	modified:   "\344\275\277\347\224\250\350\257\264\346\230\216.txt"
+#	modified:   "\345\215\217\350\256\256\350\257\264\346\230\216.txt"
+#	modified:   "\346\233\264\346\226\260\350\257\264\346\230\216.txt"
+#
+
