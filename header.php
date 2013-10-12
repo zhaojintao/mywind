@@ -1,7 +1,24 @@
 <div class="header">
 	<h1 class="logo"><a href="javascript:;"></a></h1>
 	<div class="txt"><a href="javascript:;" onclick="AddFavorite();return false;">加入收藏</a><span>|</span>
-	<?php if($cfg_member == 'Y'){if(isset($_COOKIE['username'])){?><a href="member.php?c=default">会员中心</a>&nbsp;&nbsp;<a href="member.php?a=logout">退出</a><?php }else{ ?><a href="member.php?c=login">登录</a>&nbsp;&nbsp;&nbsp;<a href="member.php?c=reg">注册</a><?php }}else{ ?><a href="javascript:;" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage(location.href);">设为首页</a><?php } ?></div>
+	<?php 
+	if($cfg_member == 'Y')
+	{
+		if(isset($_COOKIE['username']))
+		{?>
+		<a href="member.php?c=default">会员中心</a>&nbsp;&nbsp;
+		<a href="member.php?a=logout">退出</a>
+		<?php 
+		}else{ 
+		?>
+		<a href="index.php">返回首页</a>&nbsp;&nbsp;&nbsp;
+		<a href="http://mail.nkhf.com.cn/login.htm" target="_blank">企业邮局</a>
+		<?php }
+	}else{ 
+	?><a href="javascript:;" 
+	onclick="this.style.behavior='url(#default#homepage)';
+		this.setHomePage(location.href);">设为首页</a>
+		<?php } ?></div>
 	<div class="tel"><?php echo $cfg_hotline; ?></div>
 </div>
 <div class="navArea">

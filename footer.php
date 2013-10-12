@@ -13,7 +13,7 @@
 </div>
 <!-- /weblink-->
 <!-- footer-->
-<div class="footer"><?php echo $cfg_copyright ?><br />网站采用 <a href="http://phpmywind.com" target="_blank">PHPMyWind</a> 核心</div>
+<div class="footer"><?php echo $cfg_copyright ?><br />技术支持 <a href="mailto:jintaozhao@qq.com?subject=网站开发业务咨询&body=为你的需求寻找，最专业的技术开发。" target="_blank">Rocky</a>&nbsp;专业的技术开发设计团队 </div>
 <!-- /footer-->
 <?php
 
