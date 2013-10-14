@@ -252,13 +252,13 @@ switch($flag)
 		if($_SESSION['adminlevel'] > 1)
 		{
 			if(in_array($row['classid'], $catgoryUpdatePriv))
-				$updateStr = '<a href="infolist_update.php?cid='.$cid.'&id='.$row['id'].'">修改</a>';
+				$updateStr = '<a href="infoimg_update.php?cid='.$cid.'&id='.$row['id'].'">修改</a>';
 			else
 				$updateStr = '修改';
 		}
 		else
 		{
-			$updateStr = '<a href="infolist_update.php?cid='.$cid.'&id='.$row['id'].'">修改</a>';
+			$updateStr = '<a href="infoimg_update.php?cid='.$cid.'&id='.$row['id'].'">修改</a>';
 		}
 
 
