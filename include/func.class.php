@@ -226,7 +226,7 @@ function GetCatName($cid=0)
 {
 	global $dosql;
 
-	$r = $dosql->GetOne("SELECT `classname` FROM `#@__infoclass` WHERE `id`=$cid");
+	$r = $dosql->GetOne("SELECT `classname` FROM `#@__nav` WHERE `id`=$cid");
 
 	if(isset($r['classname']))
 		return $r['classname'];
@@ -409,7 +409,7 @@ function GetPosStr($cid=0,$id=0,$sign='&nbsp;&gt;&nbsp;')
 	{
 		
 		//获取当前栏目信息
-		$r = $dosql->GetOne("SELECT * FROM `#@__infoclass` where `id`=$cid");
+		$r = $dosql->GetOne("SELECT * FROM `#@__nav` where `id`=$cid");
 		if(empty($r['parentstr']))
 		{
 			return $pos_str.$sign.'栏目不存在';
@@ -423,16 +423,16 @@ function GetPosStr($cid=0,$id=0,$sign='&nbsp;&gt;&nbsp;')
 		
 				foreach($pid_arr as $v)
 				{
-					if(!empty($v))
+					if(!empty($v) && $v != 1)
 					{
-						$r = $dosql->GetOne("SELECT * FROM `#@__infoclass` where `id`=$v");
+						$r = $dosql->GetOne("SELECT * FROM `#@__nav` where `id`=$v");
 						$pos_str .= $sign.$r['classname'];
 					}
 				}
 			}
 
 			//构成本级栏目字符
-			$r = $dosql->GetOne("SELECT * FROM `#@__infoclass` WHERE `id`=$cid");
+			$r = $dosql->GetOne("SELECT * FROM `#@__nav` WHERE `id`=$cid");
 			if(isset($r) && is_array($r))
 			{
 				if(!empty($id))
@@ -534,14 +534,13 @@ function GetNav($pid=1)
 		else
 			$classname = $row['classname'];
 
-		$str .= '<li><a href="'.$gourl.'"';
+		$str .= '<li><a cid="' . $row['id'] . '" href="'.$gourl.'"';
 
 		if($row['target'] != '')
 			$str .= ' target="'.$row['target'].'"';
 
 		$str .= '>'.$classname.'</a><ul class="nav_sub">'.GetSubNav($row['id']).'</ul></li>';
 	}
-
 	return $str;
 }
 
@@ -573,7 +572,7 @@ function GetSubNav($id)
 			$classname = $row['classname'];
 
 
-		$str .= '<li><a href="'.$gourl.'"';
+		$str .= '<li><a cid="' . $row['id'] . '" href="'.$gourl.'"';
 		
 		if($row['target'] != '')
 			$str .= ' target="'.$row['target'].'"';
@@ -620,6 +619,25 @@ function GetFragment($id=0,$t=0)
 	if(isset($r) && is_array($r))
 	{
 		return $r['f'];
+	}
+}
+
+/*
+ * 函数说明：根据cid 获取当前栏目基本数据
+*
+* @access  public
+* @param   $cid  int  栏目ID
+* @return  string    返回导航
+*/
+function SetCurBase()
+{
+	global $dosql, $cfg_isreurl;
+	$r = $dosql->GetOne("SELECT * FROM `#@__nav` WHERE id={$GLOBALS['cid']} AND checkinfo=true");
+	if(isset($r) && is_array($r))
+	{
+		foreach ($r as $key => $val) {
+			$GLOBALS['base'][$key] = $val;
+		}
 	}
 }
 ?>

@@ -32,9 +32,10 @@ person: Feng
 //初始化类
 $dosql = new MySql();
 
+
 class MySql
 {
-    var $db_host = 'localhost';
+    var $db_host;
     var $db_user;
     var $db_pwd;
     var $db_name;

@@ -3,6 +3,9 @@ require(dirname(__FILE__).'/include/config.inc.php');
 
 //初始化参数检测正确性
 $id  = empty($id)  ? 0 : intval($id);
+$pid  = empty($pid)  ? 0 : intval($pid);
+$GLOBALS['cid'] = $pid;
+SetCurBase();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,7 +28,7 @@ $id  = empty($id)  ? 0 : intval($id);
 <!-- /notice-->
 <!-- mainbody-->
 <div class="subBody">
-	<div class="subTitle"> <span class="catname">人才招聘</span> <a href="javascript:history.go(-1);" class="goback">&gt;&gt; 返回</a> <span>您当前所在位置：首页 &gt; 人才招聘</span>
+	<div class="subTitle"> <span class="catname">人才招聘</span> <a href="javascript:history.go(-1);" class="goback">&gt;&gt; 返回</a> <span>您当前所在位置：首页 &gt; 人力资源 &gt; 人才招聘</span>
 		<div class="cl"></div>
 	</div>
 	<div class="OneOfTwo">

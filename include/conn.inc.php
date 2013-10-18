@@ -14,13 +14,13 @@ $db_host = 'localhost';
 $db_user = 'root';
 
 //数据库密码
-$db_pwd = 'root';
+$db_pwd = '123456';
 
 //数据库名
-$db_name = 'test_db';
+$db_name = 'phpmywind_db';
 
 //数据表前缀
-$db_tablepre = 'zjt_';
+$db_tablepre = 'pmw_';
 
 //数据表编码
 $db_charset = 'utf8';

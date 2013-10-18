@@ -6,14 +6,17 @@
 	while($row = $dosql->GetArray())
 	{
 	?>
-	<a href="<?php echo $row['linkurl']; ?>" target="_blank"><?php echo $row['webname']; ?></a>
+	<a href="<?php echo $row['linkurl']; ?>" target="_blank" title="<?php echo $row['webname']; ?>"><img width="100" height="20" src="<?php echo $row['picurl'] ?>"/></a>
 	<?php
 	}
 	?>
 </div>
 <!-- /weblink-->
 <!-- footer-->
-<div class="footer"><?php echo $cfg_copyright ?><br />技术支持 <a href="mailto:jintaozhao@qq.com?subject=网站开发业务咨询&body=为你的需求寻找，最专业的技术开发。" target="_blank">Rocky</a>&nbsp;专业的技术开发设计团队 </div>
+<div class="footer"><?php echo $cfg_copyright ?></div>
+<input type="hidden" id="input_pid" value="<?php echo $GLOBALS['base']['parentid']; ?>">
+<input type="hidden" id="input_cid" value="<?php echo $GLOBALS['base']['id']; ?>">
+<input type="hidden" id="input_cname" value="<?php echo $GLOBALS['base']['classname']; ?>">
 <!-- /footer-->
 <?php
 

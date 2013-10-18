@@ -1,4 +1,8 @@
-<?php require(dirname(__FILE__).'/include/config.inc.php'); ?>
+<?php require(dirname(__FILE__).'/include/config.inc.php'); 
+$GLOBALS['cid'] = 2;
+$cid = $GLOBALS['cid'];
+SetCurBase();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -43,7 +47,7 @@ $(function(){
 <!-- notice-->
 <div class="notice">
 	<div class="notice_a"><strong>网站公告：</strong><?php echo Info(1); ?></div>
-	<div class="search">
+	<div class="search undis">
 		<form name="search" id="search" method="get" action="product.php">
 			<input type="text" name="keyword" id="keyword" title="输入产品名进行搜索" value="" class="key" />
 			<button type="submit" id="search_btn" class="sub"><span>搜索</span></button>
@@ -59,13 +63,13 @@ $(function(){
 		<div class="newwarp">
 			<div class="newstitle">
 			<?php
-			if($cfg_isreurl!='Y') $gourl = 'news.php';
-			else $gourl = 'news.html';
+			if($cfg_isreurl!='Y') $gourl = 'news_xwmk.php';
+			else $gourl = 'news_xwmk.html';
 			?>
 			<a href="<?php echo $gourl; ?>">更多&gt;&gt;</a></div>
 			<div class="newsfocus">
 				<?php
-				$row = $dosql->GetOne("SELECT * FROM `#@__infolist` WHERE classid=4 AND flag LIKE '%h%' AND delstate='' AND checkinfo=true ORDER BY orderid DESC");
+				$row = $dosql->GetOne("SELECT * FROM `#@__infolist` WHERE parentid=4 AND delstate='' AND checkinfo=true ORDER BY orderid DESC");
 				if(isset($row['id']))
 				{
 					//获取链接地址
@@ -115,9 +119,9 @@ $(function(){
 		<!-- aboutus-->
 		<div class="aboutus"><img src="<?php echo InfoPic(3); ?>" width="154" height="83" />
 		<?php
-		if($cfg_isreurl!='Y') $gourl = 'about.php';
-		else $gourl = 'about.html';
-		echo Info(3,147,$gourl);
+		if($cfg_isreurl!='Y') $gourl = 'about_gsjj.php';
+		else $gourl = 'about_gsjj.html';
+		echo Info(3,160,$gourl);
 		?>
 		</div>
 		<!-- /aboutus-->
@@ -125,7 +129,7 @@ $(function(){
 	</div>
 	<div class="TowOfTow">
 		<div class="contact"> <?php echo Info(10); ?> </div>
-		<div class="follow"><a href="http://weibo.com/phpMyWind" class="sina" target="_blank">收听新浪微博</a><a href="http://t.qq.com/phpMyWind" class="tqq" target="_blank">收听腾讯微博</a></div>
+		<div class="follow undis"><a href="http://weibo.com/phpMyWind" class="sina" target="_blank">收听新浪微博</a><a href="http://t.qq.com/phpMyWind" class="tqq" target="_blank">收听腾讯微博</a></div>
 	</div>
 	<div class="cl"></div>
 	<!-- /mainbody 1of2 2of2-->

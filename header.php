@@ -1,24 +1,7 @@
 <div class="header">
 	<h1 class="logo"><a href="javascript:;"></a></h1>
-	<div class="txt"><a href="javascript:;" onclick="AddFavorite();return false;">加入收藏</a><span>|</span>
-	<?php 
-	if($cfg_member == 'Y')
-	{
-		if(isset($_COOKIE['username']))
-		{?>
-		<a href="member.php?c=default">会员中心</a>&nbsp;&nbsp;
-		<a href="member.php?a=logout">退出</a>
-		<?php 
-		}else{ 
-		?>
-		<a href="index.php">返回首页</a>&nbsp;&nbsp;&nbsp;
-		<a href="http://mail.nkhf.com.cn/login.htm" target="_blank">企业邮局</a>
-		<?php }
-	}else{ 
-	?><a href="javascript:;" 
-	onclick="this.style.behavior='url(#default#homepage)';
-		this.setHomePage(location.href);">设为首页</a>
-		<?php } ?></div>
+	<div class="txt">
+	<a href="./index.php">返回首页</a>&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://mail.nkhf.com.cn">企业邮箱</a></div>
 	<div class="tel"><?php echo $cfg_hotline; ?></div>
 </div>
 <div class="navArea">
@@ -34,11 +17,14 @@ $(function(){
 
 	/*当前页面导航高亮*/
 	var href = window.location.href.split('/')[window.location.href.split('/').length-1].substr(0,4);
+	var pid = $('#input_pid').val();
+	var cid = $('#input_cid').val();
 	if(href.length > 0){
 		$(function(){
-			$("ul.nav a:first[href^='"+href+"']").attr("class","on");
-			if($("ul.nav a:first[href^='"+href+"']").size() == 0){
-				$("ul.nav a:first[href^='index']").attr("class","on");
+			$("ul.nav a:first[cid='"+pid+"']").attr("class","on");
+			$("ul.nav_sub a:first[cid='"+cid+"']").attr("class","on");
+			if($("ul.nav a:first[cid='"+pid+"']").size() == 0){
+				$("ul.nav a:first[cid='"+cid+"']").attr("class","on");
 			}
 		});
 	}else{

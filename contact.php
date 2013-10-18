@@ -2,7 +2,8 @@
 require(dirname(__FILE__).'/include/config.inc.php');
 
 //初始化参数检测正确性
-$cid = empty($cid) ? 9 : intval($cid);
+$GLOBALS['cid'] = $cid = 56;
+SetCurBase();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,7 +30,7 @@ $cid = empty($cid) ? 9 : intval($cid);
 		<div class="cl"></div>
 	</div>
 	<div class="OneOfTwo">
-		<div class="subCont"> <?php echo Info($cid); ?> </div>
+		<div class="subCont"> <?php echo Info(9); ?> </div>
 	</div>
 	<div class="TwoOfTwo">
 		<?php require('lefter.php'); ?>

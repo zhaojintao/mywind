@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /*全局控制*/
-body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Arial,"宋体";-webkit-text-size-adjust:none;}
+body{background-color:#FFFFFF;margin:0;padding:0;font-size:12px;line-height:22px;font-family:Arial,"宋体";-webkit-text-size-adjust:none;}
 html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
 input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
 a{color:#333;text-decoration:none;}
@@ -19,9 +19,13 @@ input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:non
 
 /*头部区域*/
 .header{width:960px;height:90px;margin:0 auto;position:relative;z-index:1;}
+/*
 .header h1{width:265px;height:43px;float:left;margin:24px 0 0 5px;}
 .header h1.logo{background:url(../images/logo.png) no-repeat;}
-.header .txt{position:absolute;width:190px;top:18px;right:16px;text-align:center;color:#dfdfdf;_display:inline-block;}
+*/
+.header h1{width:265px;height:60px;float:left;margin:13px 0 0 5px;}
+.header h1.logo{background:url(../images/nklogo.png) no-repeat;}
+.header .txt{position:absolute;width:174px;top:18px;right:16px;text-align:center;color:#dfdfdf;_display:inline-block;}
 .header .txt span{padding:0 10px;}
 .header .tel{position:absolute;top:50px;right:16px;height:14px;line-height:14px;padding-left:70px;background:url(../images/tel_txt.png) no-repeat;text-align:center;font-family:Verdana;font-size:14px;color:#8d8c8c;}
 .navArea{padding-bottom:25px;background:url(../images/nav_bg.png) repeat-x 0 bottom;}
@@ -30,7 +34,7 @@ input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:non
 .nav li{float:left;}
 .nav li a{display:block;width:105px;text-align:center;font-size:14px;font-weight:bold;color:#fff;}
 .nav li a:hover, .nav li a:hover.on{background:#333;text-decoration:none;}
-.nav li a.on{background:#1c1c1c;}
+.nav li a.on{background:#1c1c1c;color:#FFFFFF}
 .nav li a.on2{background:#333;text-decoration:none;}
 .nav li:hover.on{background:#1c1c1c;text-decoration:none;}
 .nav li ul{display:none;position:absolute;z-index:9999;} 
@@ -133,11 +137,11 @@ input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:non
 /********************* 以上(结束标识)代码请在实际开发中删除 *********************/
 
 /*幻灯Banner*/
-#slideplay{width:960px;height:350px;position:relative;overflow:hidden;}
+#slideplay{width:960px;height:210px;position:relative;overflow:hidden;}
 #slideplay ul{position:absolute;}
-#slideplay ul li{height:350px;position:relative;float:left;background:#000;overflow:hidden;}
+#slideplay ul li{height:210px;position:relative;float:left;background:#000;overflow:hidden;}
 #slideplay ul li div{position:absolute;}
-#slideplay ul li img{width:960px;height:350px;}
+#slideplay ul li img{width:960px;height:210px;}
 #slideplay .btnBg{width:960px;height:20px;position:absolute;left:0;bottom:0;background:#000;}
 #slideplay .btn{height:10px;padding:5px 10px;position:absolute;right:0;bottom:0;text-align:right;}
 #slideplay .btn span{width:25px;height:10px;margin-left:5px;background:#fff;display:inline-block;cursor:pointer;_display:inline;_zoom:1;_font-size:0;}

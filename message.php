@@ -1,5 +1,6 @@
 <?php	require(dirname(__FILE__).'/include/config.inc.php');
-
+$GLOBALS['cid'] = 6;
+SetCurBase();
 
 //留言内容处理
 if(isset($action) and $action=='add')
@@ -112,7 +113,7 @@ $(function(){
 			?>
 			<div class="message_block">
 				<div class="message_title">
-					<h2><?php echo $row['nickname']; ?></h2>
+					<h2>客户留言</h2>
 					<span><?php echo $i; ?>#</span></div>
 				<p><?php echo $row['content']; ?></p>
 				<?php
@@ -123,7 +124,7 @@ $(function(){
 				<?php
 				}
 				?>
-				<div class="message_info"><?php echo GetDateTime($row['posttime']); ?> / <?php echo preg_replace('/((?:\d+\.){3})\d+/', '\\1*', $row['ip']); ?></div>
+				<div class="message_info"><?php echo GetDateTime($row['posttime']); ?> </div>
 			</div>
 			<?php
 				$i--;

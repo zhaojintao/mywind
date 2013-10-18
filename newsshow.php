@@ -4,12 +4,16 @@ require(dirname(__FILE__).'/include/config.inc.php');
 //初始化参数检测正确性
 $cid = empty($cid) ? 4 : intval($cid);
 $id  = empty($id)  ? 0 : intval($id);
+$pid  = empty($pid)  ? 0 : intval($pid);
+$GLOBALS['cid'] = $pid;
+SetCurBase();
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<?php echo GetHeader(1,$cid,$id); ?>
+<?php echo GetHeader(1,0,0,'新闻模块'); ?>
 <link href="templates/default/style/webstyle.css" type="text/css" rel="stylesheet" />
 <link href="templates/default/style/lightbox.css" type="text/css" rel="stylesheet" />
 <!--[if IE 6]><link href="templates/default/style/lightbox.ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
@@ -41,7 +45,7 @@ $(function(){
 <!-- /notice--> 
 <!-- mainbody-->
 <div class="subBody">
-	<div class="subTitle"> <span class="catname"><?php echo GetCatName($cid); ?></span> <a href="javascript:history.go(-1);" class="goback">&gt;&gt; 返回</a> <span class="fr">您当前所在位置：<?php echo GetPosStr($cid,$id); ?></span>
+	<div class="subTitle"> <span class="catname"><?php echo GetCatName($pid); ?></span> <a href="javascript:history.go(-1);" class="goback">&gt;&gt; 返回</a> <span class="fr">您当前所在位置：<?php echo GetPosStr($pid); ?></span>
 		<div class="cl"></div>
 	</div>
 	<div class="OneOfTwo">
@@ -191,7 +195,7 @@ $(function(){
 					</div>
 					<div class="toolbar">
 						<div class="options">
-							不想登录？直接点击发布即可作为游客留言。
+							直接点击发布即可留言。
 						</div>
 						<button class="button" type="button">发 布</button>
 					</div>
