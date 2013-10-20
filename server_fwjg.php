@@ -1,6 +1,10 @@
 <?php
 require(dirname(__FILE__).'/include/config.inc.php');
-
+/**
+ * 服务机构
+ * Enter description here ...
+ * @var unknown_type
+ */
 $GLOBALS['cid'] = 49;
 $cid = $GLOBALS['cid'];
 SetCurBase();

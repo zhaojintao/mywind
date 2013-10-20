@@ -134,7 +134,7 @@ $(function(){
 	<div class="cl"></div>
 	<!-- /mainbody 1of2 2of2-->
 	<!-- product-->
-	<div class="scrollimg">
+	<!--<div class="scrollimg">
 		<div class="imgwrap">
 			<ul>
 				<?php
@@ -167,7 +167,7 @@ $(function(){
 			</ul>
 		</div>
 	</div>
-	<!-- /product-->
+	--><!-- /product-->
 </div>
 <!-- /mainbody-->
 <?php require('footer.php'); ?>

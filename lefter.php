@@ -8,4 +8,6 @@
 	<div class="cl"></div>
 </div>
 <div class="contact"> <?php echo Info(10); ?> </div>
-<div class="follow undis"><a href="http://weibo.com/phpMyWind" class="sina" target="_blank">收听新浪微博</a><a href="http://t.qq.com/phpMyWind" class="tqq" target="_blank">收听腾讯微博</a></div>
+<div class="follow undis">
+<a href="http://weibo.com/phpMyWind" class="sina" target="_blank">收听新浪微博</a>
+<a href="http://t.qq.com/phpMyWind" class="tqq" target="_blank">收听腾讯微博</a></div>

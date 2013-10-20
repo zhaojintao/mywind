@@ -33,23 +33,33 @@
 				<div class="title" onclick="DisplayMenu('leftmenu02');" title="点击切换显示或隐藏"> 栏目内容管理 </div>
 				<div id="leftmenu02" style="display:none"> <a href="infoclass.php" target="main">栏目管理</a><a href="maintype.php" target="main">二级类别管理</a>
 					<div class="hr_1"> </div>
-					<a href="info.php" target="main">单页信息管理</a> <a href="infolist.php" target="main">列表信息管理</a> <a href="infoimg.php" target="main">图片信息管理</a> <a href="soft.php" target="main">软件下载管理</a>
+					<a href="info.php" target="main">单页信息管理</a> 
+					<a href="infolist.php" target="main">列表信息管理</a> 
+					<a href="infoimg.php" target="main">图片信息管理</a> 
+<!--					<a href="soft.php" target="main">软件下载管理</a>-->
 					<div class="hr_1"> </div>
 					<a href="fragment.php" target="main">碎片数据管理</a> <a href="diymenu.php" target="main">自定义菜单项</a> <a href="diyfield.php" target="main">自定义字段</a> <a href="infoflag.php" target="main" title="信息标记管理" class="infoattr"></a> <a href="infosrc.php" target="main" title="信息来源管理" class="infosrc"></a> </div>
 			</div>
 			<div class="hr_5"></div>
 			<div class="menubox">
 				<div class="title" onclick="DisplayMenu('leftmenu03');" title="点击切换显示或隐藏"> 模块扩展管理 </div>
-				<div id="leftmenu03" style="display:none"><a href="member.php" target="main">用户管理</a> <a href="userfavorite.php" target="main">用户收藏管理</a> <a href="usercomment.php" target="main">用户评论管理</a> 
+				<div id="leftmenu03" style="display:none">
+				<a href="member.php" target="main">用户管理</a> 
+<!--				<a href="userfavorite.php" target="main">用户收藏管理</a> -->
+				<a href="usercomment.php" target="main">用户评论管理</a> 
 					<div class="hr_1"> </div>
-					  <a href="message.php" target="main">留言模块管理</a> <a href="admanage.php" target="main">广告模块管理</a> <a href="weblink.php" target="main">友情链接管理</a> <a href="job.php" target="main">招聘模块管理</a> <a href="vote.php" target="main">投票模块管理</a>
-					<div class="hr_1"> </div>
-					<a href="cascade.php" target="main">级联数据管理</a> 
+					  <a href="message.php" target="main">留言模块管理</a>
+					  <a href="admanage.php" target="main">广告模块管理</a>
+					  <a href="weblink.php" target="main">友情链接管理</a>
+					  <a href="job.php" target="main">招聘模块管理</a>
+<!--					  <a href="vote.php" target="main">投票模块管理</a>-->
+<!--					<div class="hr_1"> </div>-->
+<!--					<a href="cascade.php" target="main">级联数据管理</a> -->
 					<a href="usergroup.php" target="main" title="用户组管理" class="usertype"></a> <a href="adtype.php" target="main" title="广告位管理" class="adtype"></a> <a href="weblinktype.php" target="main" title="友情链接类别" class="weblinktype"></a> </div>
 			</div>
 			<div class="hr_5"></div>
 			<div class="menubox">
-				<div class="title" onclick="DisplayMenu('leftmenu04');" title="点击切换显示或隐藏"> 商品订单管理 </div>
+				<div class="title" onclick="DisplayMenu('leftmenu04');" title="点击切换显示或隐藏" style="display:none"> 商品订单管理 </div>
 				<div id="leftmenu04" style="display:none"> <a href="goodstype.php" target="main">商品类别管理</a> <a href="goodsbrand.php" target="main">品牌类型管理</a> <a href="goodsflag.php" target="main" title="商品信息属性管理" class="goodsinfoattr"></a>
 					<div class="hr_1"> </div>
 					<a href="goods.php" target="main">商品列表管理</a> <a href="goodsorder.php" target="main">商品订单管理</a>
@@ -58,14 +68,14 @@
 			</div>
 			<div class="hr_5"></div>
 			<div class="menubox">
-				<div class="title" onclick="DisplayMenu('leftmenu05');" title="点击切换显示或隐藏"> 界面模板管理 </div>
+				<div class="title" onclick="DisplayMenu('leftmenu05');" title="点击切换显示或隐藏" style="display:none"> 界面模板管理 </div>
 				<div id="leftmenu05" style="display:none;"> <a href="nav.php" target="main">导航菜单设置</a>
 					<div class="hr_1"> </div>
 					<a href="editfile.php" target="main">默认模板管理</a> </div>
 			</div>
 			<div class="hr_5"></div>
 			<div class="menubox">
-				<div class="title" onclick="DisplayMenu('leftmenu06');" title="点击切换显示或隐藏"> 帮助与更新 </div>
+				<div class="title" onclick="DisplayMenu('leftmenu06');" title="点击切换显示或隐藏" style="display:none"> 帮助与更新 </div>
 				<div id="leftmenu06" style="display:none;"> <a href="upload_file.php" target="main">上传新文件</a>
 					<div class="hr_1"> </div>
 					<!--<a href="check_update.php" target="main">检查可用更新</a>--> <a href="check_bom.php" target="main">BOM检查</a> <a href="help.php" target="main">开发帮助</a> </div>
@@ -76,7 +86,7 @@
 </div>
 <div class="bGradient"></div>
 <div class="hr_5"></div>
-<div class="copyright"> © 2013 <a href="http://phpMyWind.com/" target="_blank">phpMyWind.com</a><br />
+<div class="copyright"> © 2013 <a href="http://http://www.nkhf.com.cn/" target="_blank">陕西农科</a><br />
 	All Rights Reserved. </div>
 </body>
 </html>

@@ -1,11 +1,11 @@
 <?php	if(!defined('IN_PHPMYWIND')) exit('Request Error!');
 
-$cfg_webname = '我的网站';
+$cfg_webname = '陕西农科化肥有限公司';
 $cfg_weburl = 'http://localhost';
-$cfg_webpath = '/PHPMyWind_v4.6.5';
+$cfg_webpath = '/mywind';
 $cfg_author = '';
-$cfg_generator = 'PHPMyWind CMS';
-$cfg_keyword = '农科化肥，陕西农科，陕西农科化肥有限公司';
+$cfg_generator = 'MyWind CMS';
+$cfg_keyword = '农科化肥，陕西农科，陕西农科化肥有限公司，化肥';
 $cfg_description = '陕西农科化肥有限公司';
 $cfg_copyright = '版权所有 （C） 陕西农科化肥有限公司
 <br>

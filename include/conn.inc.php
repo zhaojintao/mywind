@@ -14,7 +14,7 @@ $db_host = 'localhost';
 $db_user = 'root';
 
 //数据库密码
-$db_pwd = '123456';
+$db_pwd = 'root';
 
 //数据库名
 $db_name = 'phpmywind_db';

@@ -196,8 +196,7 @@ switch($s)
 				INSERT INTO `#@__webconfig` VALUES('1','cfg_generator','程序引擎','0','string','PHPMyWind CMS','5');
 				INSERT INTO `#@__webconfig` VALUES('1','cfg_keyword','关键字设置','0','string','','6');
 				INSERT INTO `#@__webconfig` VALUES('1','cfg_description','网站描述','0','bstring','','7');
-				INSERT INTO `#@__webconfig` VALUES('1','cfg_copyright','版权信息','0','bstring','Copyright © 2010 - 2013 phpMyWind.com All Rights Reserved','8');
-				INSERT INTO `#@__webconfig` VALUES('1','cfg_hotline','客服热线','0','string','400-800-8888','9');
+				
 				INSERT INTO `#@__webconfig` VALUES('1','cfg_icp','备案编号','0','string','','10');
 				INSERT INTO `#@__webconfig` VALUES('1','cfg_webswitch','启用站点','0','bool','Y','11');
 				INSERT INTO `#@__webconfig` VALUES('1','cfg_switchshow','关闭说明','0','bstring','对不起，网站维护，请稍后登陆。<br />网站维护期间对您造成的不便，请谅解！','12');

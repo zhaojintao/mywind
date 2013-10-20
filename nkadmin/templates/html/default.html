@@ -13,7 +13,12 @@
 <body class="showmenu">
 <div class="header">
 	<div class="header_logo">
-		<div class="header_info">欢迎您：<span class="loginuser_info" title="登陆于：<?php echo GetDateTime($_SESSION['logintime']); ?>"><?php echo '<span>'.$_SESSION['admin'].'</span> [';$r = $dosql->GetOne("SELECT `groupname` FROM `#@__admingroup` WHERE `id`=".$_SESSION['adminlevel']);echo ($levelname = isset($r['groupname']) ? $r['groupname'] : '未启用的组'); ?>]</span> [<a href="logout.php" title="快捷键Esc">退出</a>]<span class="line">&nbsp;</span><a href="../" target="_blank">网站首页</a><span class="line">&nbsp;</span><a href="javascript:;" class="lockscreen">锁屏</a><span class="line">&nbsp;</span><a href="http://phpmywind.com/" target="_blank">官方网站</a><span class="line">&nbsp;</span><a href="http://phpmywind.com/bbs/" target="_blank" class="help">帮助</a> </div>
+		<div class="header_info">欢迎您：<span class="loginuser_info" title="登陆于：<?php echo GetDateTime($_SESSION['logintime']); ?>"><?php echo '<span>'.$_SESSION['admin'].'</span> [';$r = $dosql->GetOne("SELECT `groupname` FROM `#@__admingroup` WHERE `id`=".$_SESSION['adminlevel']);echo ($levelname = isset($r['groupname']) ? $r['groupname'] : '未启用的组'); ?>]</span> [<a href="logout.php" title="快捷键Esc">退出</a>]<span class="line">&nbsp;</span><a href="../" target="_blank">网站首页</a><span class="line">&nbsp;</span><a href="javascript:;" class="lockscreen">锁屏</a>
+<!--		<span class="line">&nbsp;</span>-->
+<!--		<a href="http://phpmywind.com/" target="_blank">官方网站</a>-->
+<!--		<span class="line">&nbsp;</span>-->
+<!--		<a href="http://phpmywind.com/bbs/" target="_blank" class="help">帮助</a> -->
+		</div>
 	</div>
 	<div class="quick"> <a href="home.php" target="main" id="btn" class="btn" title="回到系统首页">快捷导航</a>
 		<div class="qucikmenu" id="qucikmenu">
@@ -165,7 +170,7 @@
 							<dd>
 								<ul>
 									<li><a href="usercomment.php" target="main">用户评论管理</a></li>
-									<li><a href="userfavorite.php" target="main">用户收藏管理</a></li>
+<!--									<li><a href="userfavorite.php" target="main">用户收藏管理</a></li>-->
 								</ul>
 							</dd>
 						</dl>

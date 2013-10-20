@@ -62,7 +62,7 @@
 									'infolist'=>'<a href="infolist.php" target="main">列表信息管理</a>',
 									'infoimg'=>'<a href="infoimg.php" target="main">图片信息管理</a>',
 									'infolist'=>'<a href="infolist.php" target="main">列表信息管理</a>',
-									'soft'=>'<a href="soft.php" target="main">软件下载管理</a>',
+//									'soft'=>'<a href="soft.php" target="main">软件下载管理</a>',
 									'fragment'=>'<a href="fragment.php" target="main">碎片数据管理</a>',
 									'diymenu'=>'<a href="diymenu.php" target="main">自定义菜单项</a>',
 									'diyfield'=>'<a href="diyfield.php" target="main">自定义字段</a>',
@@ -281,9 +281,8 @@
 	</div>
 </div>
 <div class="bGradient"></div>
-<div class="copyright">
-	© 2013 <a href="http://phpMyWind.com/" target="_blank">phpMyWind.com</a><br />All Rights Reserved.
-</div>
+<div class="copyright"> © 2013 <a href="http://http://www.nkhf.com.cn/" target="_blank">陕西农科</a><br />
+	All Rights Reserved. </div>
 <?php
 function GetModelPriv($m='')
 {

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Page-Enter" content="blendTrans(Duration=0.3)" />
 <meta http-equiv="Page-Exit" content="blendTrans(Duration=0.3)" />
-<title><?php echo $cfg_webname; ?> - PHPMyWind 管理中心</title>
+<title><?php echo $cfg_webname; ?> - PHP网站后台管理中心</title>
 <link href="templates/style/frame.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="templates/js/jquery.min.js"></script>
 <script type="text/javascript" src="templates/js/frame.js"></script>
@@ -13,9 +13,14 @@
 <body class="showmenu">
 <div class="header">
 	<div class="header_logo">
-		<div class="header_info">欢迎您：<span class="loginuser_info" title="登陆于：<?php echo GetDateTime($_SESSION['logintime']); ?>"><?php echo '<span>'.$_SESSION['admin'].'</span> [';$r = $dosql->GetOne("SELECT `groupname` FROM `#@__admingroup` WHERE `id`=".$_SESSION['adminlevel']);echo ($levelname = isset($r['groupname']) ? $r['groupname'] : '未启用的组'); ?>]</span> [<a href="logout.php" title="快捷键Esc">退出</a>]<span class="line">&nbsp;</span><a href="../" target="_blank">网站首页</a><span class="line">&nbsp;</span><a href="javascript:;" onclick="lockscreen()" id="lockscreen" class="lockscreen">锁屏</a><span class="line">&nbsp;</span><a href="http://phpmywind.com/" target="_blank">官方网站</a><span class="line">&nbsp;</span><a href="http://phpmywind.com/bbs/" target="_blank" class="help">帮助</a></div>
+		<div class="header_info">欢迎您：<span class="loginuser_info" title="登陆于：<?php echo GetDateTime($_SESSION['logintime']); ?>"><?php echo '<span>'.$_SESSION['admin'].'</span> [';$r = $dosql->GetOne("SELECT `groupname` FROM `#@__admingroup` WHERE `id`=".$_SESSION['adminlevel']);echo ($levelname = isset($r['groupname']) ? $r['groupname'] : '未启用的组'); ?>]</span> [<a href="logout.php" title="快捷键Esc">退出</a>]<span class="line">&nbsp;</span><a href="../" target="_blank">网站首页</a><span class="line">&nbsp;</span><a href="javascript:;" onclick="lockscreen()" id="lockscreen" class="lockscreen">锁屏</a>
+<!--		<span class="line">&nbsp;</span>-->
+<!--		<a href="http://phpmywind.com/" target="_blank">官方网站</a>-->
+<!--		<span class="line">&nbsp;</span>-->
+<!--		<a href="http://phpmywind.com/bbs/" target="_blank" class="help">帮助</a>-->
+		</div>
 	</div>
-	<div class="quick"> <a href="home_user.php" target="main" id="btn" class="btn" title="回到系统首页">快捷导航</a> </div>
+<!--	<div class="quick"> <a href="home_user.php" target="main" id="btn" class="btn" title="回到系统首页">快捷导航</a> </div>-->
 	<?php
 	$dosql->Execute("SELECT * FROM `#@__site` ORDER BY id ASC");
 	if($dosql->GetTotalRow() > 1)

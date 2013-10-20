@@ -62,14 +62,15 @@ body.hidemenu{background:none;}
 .sitelist a.on{background:#f6f9fa;}
 
 
-/*快捷菜单*/
-.quick{position:absolute;top:45px;right:20px;z-index:999;}
+/*快捷菜单,默认不显示*/
+.quick{display:none;position:absolute;top:45px;right:20px;z-index:999;}
 .quick .btn{display:inline-block;width:95px;height:25px;line-height:25px;background:url(../images/qmenu_bg.png) right -1px;text-decoration:none;font-family:"微软雅黑";font-weight:bold;color:#cc6600;overflow:hidden;text-indent:25px;}
 .quick .on{background:url(../images/qmenu_bg.png) right -31px;color:#333;}
 .quick .qucikmenu{width:550px;height:435px;position:absolute;top:24px;right:0;background:#fff;border:1px solid #959595;z-index:-1;display:none;}
 .quick .qucikmenu .warp{padding:6px;box-shadow:1px 1px 30px rgba(0,0,0,0.3);}
 .quick .qucikmenu .col{float:left;}
-.quick .qucikmenu .mapitem{width:127px;*width:135px;margin-right:-1px;padding:3px;line-height:22px;border:1px solid #eee;border-bottom:0;overflow:hidden;}
+/*商品订单管理快捷菜单默认不显示*/
+.quick .qucikmenu .mapitem{display:none;width:127px;*width:135px;margin-right:-1px;padding:3px;line-height:22px;border:1px solid #eee;border-bottom:0;overflow:hidden;}
 .quick .qucikmenu .mapitem strong{display:block;padding:2px 2px 2px 5px;line-height:18px;font-family:"微软雅黑";color:#b87500;}
 .quick .qucikmenu .mapitem dl{padding-left:4px;}
 .quick .qucikmenu .mapitem dl dt{margin:3px 0;_padding-left:1px;line-height:20px;color:#006a92;}

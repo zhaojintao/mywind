@@ -24,7 +24,6 @@ INSERT INTO `#@__site` VALUES('1','默认站点','zh_CN');
 INSERT INTO `#@__lnk` VALUES('1','栏目管理','infoclass.php','templates/images/infoclass_ico.png','1');
 INSERT INTO `#@__lnk` VALUES('2','列表管理','infolist.php','templates/images/infolist_ico.png','2');
 INSERT INTO `#@__lnk` VALUES('3','图片管理','infoimg.php','templates/images/infoimg_ico.png','3');
-INSERT INTO `#@__lnk` VALUES('4','商品管理','goods.php','templates/images/goods_ico.gif','4');
 
 INSERT INTO `#@__infoflag` VALUES('1','h','头条','0');
 INSERT INTO `#@__infoflag` VALUES('2','c','推荐','1');

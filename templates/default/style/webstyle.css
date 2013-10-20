@@ -19,10 +19,7 @@ input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:non
 
 /*头部区域*/
 .header{width:960px;height:90px;margin:0 auto;position:relative;z-index:1;}
-/*
-.header h1{width:265px;height:43px;float:left;margin:24px 0 0 5px;}
-.header h1.logo{background:url(../images/logo.png) no-repeat;}
-*/
+
 .header h1{width:265px;height:60px;float:left;margin:13px 0 0 5px;}
 .header h1.logo{background:url(../images/nklogo.png) no-repeat;}
 .header .txt{position:absolute;width:174px;top:18px;right:16px;text-align:center;color:#dfdfdf;_display:inline-block;}

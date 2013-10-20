@@ -7,7 +7,7 @@ person: Feng
 */
 
 $(function(){
-
+	//document.getElementById('quick').style.display = 'none';//隐藏 
 	//快捷菜单
 	bindQuickMenu();
 

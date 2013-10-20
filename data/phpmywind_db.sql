@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.8.1
+-- version 4.0.3
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 10 月 18 日 18:59
--- 服务器版本: 5.5.13
+-- 生成日期: 2013 年 10 月 20 日 22:52
+-- 服务器版本: 5.5.32
 -- PHP 版本: 5.3.27
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,14 +19,51 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `phpmywind_db`
 --
+CREATE DATABASE IF NOT EXISTS `phpmywind_db` DEFAULT CHARACTER SET gbk COLLATE gbk_chinese_ci;
+USE `phpmywind_db`;
+
+-- --------------------------------------------------------
 
 --
--- 转存表中的数据 `pmw_admanage`
+-- 表的结构 `pmw_admanage`
 --
 
-INSERT INTO `pmw_admanage` (`id`, `siteid`, `classid`, `parentid`, `parentstr`, `title`, `admode`, `picurl`, `adtext`, `linkurl`, `orderid`, `posttime`, `checkinfo`) VALUES
-(1, 1, 1, 0, '0,', 'QQ电脑管家', 'image', '', '', 'http://guanjia.qq.com/', 1, 1326771010, 'true'),
-(2, 1, 2, 0, '0,', '迅雷看看', 'image', '', '', 'http://www.xunlei.com/', 2, 1326771024, 'true');
+CREATE TABLE IF NOT EXISTS `pmw_admanage` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '投放范围(广告位)',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属广告位父id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属广告位父id字符串',
+  `title` varchar(30) NOT NULL COMMENT '广告标识',
+  `admode` char(10) NOT NULL COMMENT '展示模式',
+  `picurl` varchar(100) NOT NULL COMMENT '上传内容地址',
+  `adtext` text NOT NULL COMMENT '展示内容',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '提交时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_admin`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_admin` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '信息id',
+  `username` varchar(30) NOT NULL COMMENT '用户名',
+  `password` char(32) NOT NULL COMMENT '密码',
+  `nickname` char(32) NOT NULL COMMENT '昵称',
+  `question` tinyint(1) unsigned NOT NULL COMMENT '登陆提问',
+  `answer` varchar(50) NOT NULL COMMENT '登陆回答',
+  `levelname` tinyint(1) unsigned NOT NULL COMMENT '级别',
+  `checkadmin` enum('true','false') NOT NULL COMMENT '审核',
+  `loginip` char(20) NOT NULL COMMENT '登陆IP',
+  `logintime` int(10) unsigned NOT NULL COMMENT '登陆时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `pmw_admin`
@@ -35,7 +72,22 @@ INSERT INTO `pmw_admanage` (`id`, `siteid`, `classid`, `parentid`, `parentstr`, 
 INSERT INTO `pmw_admin` (`id`, `username`, `password`, `nickname`, `question`, `answer`, `levelname`, `checkadmin`, `loginip`, `logintime`) VALUES
 (1, 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '', 0, '', 1, 'true', '192.168.1.140', 1382079015),
 (2, 'admin1', 'c3284d0f94606de1fd2af172aba15bf3', '', 0, '', 2, 'true', '192.168.1.140', 1382078189),
-(3, 'admin2', 'c3284d0f94606de1fd2af172aba15bf3', '', 0, '', 3, 'true', '192.168.1.140', 1382077461);
+(3, 'admin2', 'c3284d0f94606de1fd2af172aba15bf3', '', 0, '', 3, 'true', '192.168.1.140', 1382077461),
+(4, 'nkadmin', 'dc134ee619ff700602d1b4520295c859', '', 0, '', 1, 'true', '127.0.0.1', 1382276185);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_admingroup`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_admingroup` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT '管理组id',
+  `groupname` varchar(30) NOT NULL COMMENT '管理组名称',
+  `description` text NOT NULL COMMENT '管理组描述',
+  `checkinfo` set('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `pmw_admingroup`
@@ -45,6 +97,34 @@ INSERT INTO `pmw_admingroup` (`id`, `groupname`, `description`, `checkinfo`) VAL
 (1, '超级管理员', '超级管理员组', 'true'),
 (2, '站点管理员', '站点管理员组', 'true'),
 (3, '文章发布员', '文章发布员组', 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_adminnotes`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_adminnotes` (
+  `uname` varchar(30) NOT NULL COMMENT '用户名',
+  `body` mediumtext NOT NULL COMMENT '便签内容',
+  `posttime` int(10) unsigned NOT NULL COMMENT '提交时间',
+  `postip` varchar(30) NOT NULL COMMENT '提交IP',
+  PRIMARY KEY (`uname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_adminprivacy`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_adminprivacy` (
+  `groupid` tinyint(3) unsigned NOT NULL COMMENT '所属管理组id',
+  `siteid` tinyint(1) unsigned NOT NULL COMMENT '站点id',
+  `model` varchar(30) NOT NULL COMMENT '管理模块',
+  `classid` int(10) NOT NULL COMMENT '类型id',
+  `action` varchar(10) NOT NULL COMMENT '可执行操作'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `pmw_adminprivacy`
@@ -178,6 +258,25 @@ INSERT INTO `pmw_adminprivacy` (`groupid`, `siteid`, `model`, `classid`, `action
 (3, 1, 'category', 13, 'update'),
 (3, 1, 'category', 13, 'del');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_adtype`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_adtype` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '广告位id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '上级id',
+  `parentstr` varchar(50) NOT NULL COMMENT '上级id字符串',
+  `classname` varchar(30) NOT NULL COMMENT '广告位名称',
+  `width` smallint(5) unsigned NOT NULL COMMENT '广告位宽度',
+  `height` smallint(5) unsigned NOT NULL COMMENT '广告位高度',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列顺序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
 --
 -- 转存表中的数据 `pmw_adtype`
 --
@@ -185,6 +284,20 @@ INSERT INTO `pmw_adminprivacy` (`groupid`, `siteid`, `model`, `classid`, `action
 INSERT INTO `pmw_adtype` (`id`, `siteid`, `parentid`, `parentstr`, `classname`, `width`, `height`, `orderid`, `checkinfo`) VALUES
 (1, 1, 0, '0,', '首页广告位', 1003, 80, 1, 'true'),
 (2, 1, 0, '0,', '子页广告位', 100, 70, 2, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_cascade`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_cascade` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '级联组id',
+  `groupname` varchar(30) NOT NULL COMMENT '级联组名称',
+  `groupsign` varchar(30) NOT NULL COMMENT '级联组标识',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `pmw_cascade`
@@ -197,6 +310,22 @@ INSERT INTO `pmw_cascade` (`id`, `groupname`, `groupsign`, `orderid`) VALUES
 (4, '证件类型', 'cardtype', 4),
 (5, '安全问题', 'question', 5),
 (6, '行业分布', 'trade', 6);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_cascadedata`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_cascadedata` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '级联数据id',
+  `dataname` char(30) NOT NULL COMMENT '级联数据名称',
+  `datavalue` char(20) NOT NULL COMMENT '级联数据值',
+  `datagroup` char(20) NOT NULL COMMENT '所属级联组',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `level` tinyint(1) unsigned NOT NULL COMMENT '级联数据层次',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20020 ;
 
 --
 -- 转存表中的数据 `pmw_cascadedata`
@@ -3475,6 +3604,90 @@ INSERT INTO `pmw_cascadedata` (`id`, `dataname`, `datavalue`, `datagroup`, `orde
 (41, '医药生物', '13', 'trade', 13, 0),
 (42, '教育培训科研', '14', 'trade', 14, 0);
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_diyfield`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_diyfield` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '自定义字段id',
+  `infotype` tinyint(1) unsigned NOT NULL COMMENT '所属模型',
+  `fieldname` varchar(30) NOT NULL COMMENT '字段名称',
+  `fieldtitle` varchar(30) NOT NULL COMMENT '字段标题',
+  `fielddesc` varchar(255) NOT NULL COMMENT '字段提示',
+  `fieldtype` varchar(30) NOT NULL COMMENT '字段类型',
+  `fieldlong` varchar(10) NOT NULL COMMENT '字段长度',
+  `fieldsel` varchar(255) NOT NULL COMMENT '字段选项值',
+  `fieldcheck` varchar(80) NOT NULL COMMENT '校验正则',
+  `fieldcback` varchar(30) NOT NULL COMMENT '未通过提示',
+  `orderid` smallint(6) NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_diymenu`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_diymenu` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '自定义菜单id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属菜单id',
+  `classname` varchar(30) NOT NULL COMMENT '菜单项名称',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_failedlogin`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_failedlogin` (
+  `username` char(30) NOT NULL COMMENT '用户名',
+  `ip` char(15) NOT NULL COMMENT '登陆IP',
+  `time` int(10) unsigned NOT NULL COMMENT '登陆时间',
+  `num` tinyint(1) NOT NULL COMMENT '失败次数',
+  `isadmin` tinyint(1) NOT NULL COMMENT '是否是管理员',
+  PRIMARY KEY (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_fragment`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_fragment` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '碎片数据id',
+  `title` varchar(30) NOT NULL COMMENT '碎片数据名称',
+  `picurl` varchar(80) NOT NULL COMMENT '碎片数据缩略图',
+  `linkurl` varchar(80) NOT NULL COMMENT '碎片数据连接',
+  `content` mediumtext NOT NULL COMMENT '碎片数据内容',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_getmode`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_getmode` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '货到方式id',
+  `classname` varchar(30) NOT NULL COMMENT '货到方式名称',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
 --
 -- 转存表中的数据 `pmw_getmode`
 --
@@ -3483,12 +3696,75 @@ INSERT INTO `pmw_getmode` (`id`, `classname`, `orderid`, `checkinfo`) VALUES
 (1, '送货上门', 1, 'true'),
 (2, '用户自取', 2, 'true');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_goods`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_goods` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属栏目父id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属栏目父id字符串',
+  `typeid` smallint(5) unsigned NOT NULL COMMENT '商品分类',
+  `typepid` smallint(5) unsigned NOT NULL COMMENT '商品分类父id',
+  `typepstr` varchar(80) NOT NULL COMMENT '商品分类父id字符串',
+  `brandid` smallint(5) NOT NULL COMMENT '商品品牌id',
+  `brandpid` smallint(5) NOT NULL COMMENT '品牌上级id',
+  `brandpstr` varchar(80) NOT NULL COMMENT '品牌上级id字符串',
+  `title` varchar(80) NOT NULL COMMENT '商品名称',
+  `colorval` char(10) NOT NULL COMMENT '标题颜色',
+  `boldval` char(10) NOT NULL COMMENT '标题加粗',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `goodsid` varchar(30) NOT NULL COMMENT '货号',
+  `payfreight` enum('0','1') NOT NULL COMMENT '运费承担',
+  `weight` varchar(10) NOT NULL COMMENT '重量',
+  `attrstr` text NOT NULL COMMENT '属性字符串',
+  `marketprice` char(10) NOT NULL COMMENT '市场价格',
+  `salesprice` char(10) NOT NULL COMMENT '销售价格',
+  `housenum` smallint(5) unsigned NOT NULL COMMENT '库存数量',
+  `housewarn` enum('true','false') NOT NULL COMMENT '库存警告',
+  `warnnum` smallint(5) unsigned NOT NULL COMMENT '警告数量',
+  `integral` char(10) NOT NULL COMMENT '积分点数',
+  `source` varchar(50) NOT NULL COMMENT '文章来源',
+  `author` varchar(50) NOT NULL COMMENT '作者编辑',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `keywords` varchar(30) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '摘要',
+  `content` mediumtext NOT NULL COMMENT '详细内容',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picarr` text NOT NULL COMMENT '组图',
+  `hits` int(10) unsigned NOT NULL COMMENT '点击次数',
+  `orderid` int(10) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  `delstate` set('true') NOT NULL COMMENT '删除状态',
+  `deltime` int(10) NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
 --
 -- 转存表中的数据 `pmw_goods`
 --
 
 INSERT INTO `pmw_goods` (`id`, `classid`, `parentid`, `parentstr`, `typeid`, `typepid`, `typepstr`, `brandid`, `brandpid`, `brandpstr`, `title`, `colorval`, `boldval`, `flag`, `goodsid`, `payfreight`, `weight`, `attrstr`, `marketprice`, `salesprice`, `housenum`, `housewarn`, `warnnum`, `integral`, `source`, `author`, `linkurl`, `keywords`, `description`, `content`, `picurl`, `picarr`, `hits`, `orderid`, `posttime`, `checkinfo`, `delstate`, `deltime`) VALUES
-(1, 12, 0, '0,', 10, 1, '0,1,', -1, 0, '0,', '苹果（APPLE）iPhone 5 16G版 3G手机（黑色）WCDMA/GSM 0元购机', '', '', '', '800292', '0', '0.350', 'array("1"=>"黑色|白色","2"=>"WCDMA|GSM")', '5899.00', '5499.00', 100, 'true', 20, '0', '', 'admin', '', 'APPLEiPhone 5,苹果iPhone 5,苹果iPh', '【苹果iPhone 5】null 360BUY京东商城(360BUY.COM)提供苹果iPhone 5正品行货，全国价格最低，并包括APPLEiPhone 5手机网购指南，以及苹果iPhone 5图片、iPhone 5参数、iPhone 5评论、iPhone 5心得、iPhone 5技巧等信息，网购苹果iPhone 5手机上京东,放心又轻松', '<p>\r\n	北京时间2012年9月13日凌晨1点（美国时间9月12日上午10点），苹果公司在美国旧金山芳草地艺术中心举行新品发布会。发布会发布了旗下的第六款手机iPhone5。此外，苹果还在大会上更推出最新款的音乐播放器iPod Touch 5、iPod nano 7和之前曝光过的新款耳机“EarPods”。\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>iPhone 5</strong> 配备了4英寸1136×640分辨率的屏幕，全新的机身设计，800万像素摄像头，A6处理器和iOS 6。在存储空间方面，iPhone5将包含16GB、32GB、64GB三种版本，两年合约的售价分别为649美元、749美元、849美元。　iPhone价格信息：N42A-美国-199美元、N42B-美国-199美元、N42A-美国-299美元、N42B-美国-299美元、iphone 5，N42A-美国-399美元和N42B-美国-399美元。A和B分别代表黑色和白色。\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>iPhone 5</strong>与上一代产品iPhone4S相比，iPhone5是更轻薄，屏幕尺寸更大，它的厚度是7.6毫米，比前一代是薄了18%，重量为112克，比4S轻了20%，采用速度更快的A6处理器，整体外观也拉长。iPhone5屏幕的尺寸扩大到4英寸，屏幕的比例是16：9，应用软件的图标比之前前一代增加了一行，而处理器方面iPhone5采用的是苹果自家研发的A6处理器（内含两个CPU核心和三个图形核心），性能是A5处理器的两倍，得益于更先进的制程，处理器的核心面积缩小了22%，在大幅提升了性能的同时很好地控制了功耗和发热，iPhone5支持LTE网络,不支持NFC近场芯片。Siri也有升级，支持中文和拓展功能。iPhone 5的网速峰值速率可达到iPhone 4S的7倍。\r\n</p>', 'templates/default/images/imgdata/iphone5_01.jpg', 'templates/default/images/imgdata/iphone5_01.jpg,templates/default/images/imgdata/iphone5_02.jpg,templates/default/images/imgdata/iphone5_03.jpg,templates/default/images/imgdata/iphone5_04.jpg,templates/default/images/imgdata/iphone5_05.jpg,templates/default/images/imgdata/iphone5_03.jpg', 323, 1, 1357786470, 'true', '', 0);
+(1, 12, 0, '0,', 10, 1, '0,1,', -1, 0, '0,', '苹果（APPLE）iPhone 5 16G版 3G手机（黑色）WCDMA/GSM 0元购机', '', '', '', '800292', '0', '0.350', 'array("1"=>"黑色|白色","2"=>"WCDMA|GSM")', '5899.00', '5499.00', 100, 'true', 20, '0', '', 'admin', '', 'APPLEiPhone 5,苹果iPhone 5,苹果iPh', '【苹果iPhone 5】null 360BUY京东商城(360BUY.COM)提供苹果iPhone 5正品行货，全国价格最低，并包括APPLEiPhone 5手机网购指南，以及苹果iPhone 5图片、iPhone 5参数、iPhone 5评论、iPhone 5心得、iPhone 5技巧等信息，网购苹果iPhone 5手机上京东,放心又轻松', '<p>\r\n	北京时间2012年9月13日凌晨1点（美国时间9月12日上午10点），苹果公司在美国旧金山芳草地艺术中心举行新品发布会。发布会发布了旗下的第六款手机iPhone5。此外，苹果还在大会上更推出最新款的音乐播放器iPod Touch 5、iPod nano 7和之前曝光过的新款耳机“EarPods”。\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>iPhone 5</strong> 配备了4英寸1136×640分辨率的屏幕，全新的机身设计，800万像素摄像头，A6处理器和iOS 6。在存储空间方面，iPhone5将包含16GB、32GB、64GB三种版本，两年合约的售价分别为649美元、749美元、849美元。　iPhone价格信息：N42A-美国-199美元、N42B-美国-199美元、N42A-美国-299美元、N42B-美国-299美元、iphone 5，N42A-美国-399美元和N42B-美国-399美元。A和B分别代表黑色和白色。\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>iPhone 5</strong>与上一代产品iPhone4S相比，iPhone5是更轻薄，屏幕尺寸更大，它的厚度是7.6毫米，比前一代是薄了18%，重量为112克，比4S轻了20%，采用速度更快的A6处理器，整体外观也拉长。iPhone5屏幕的尺寸扩大到4英寸，屏幕的比例是16：9，应用软件的图标比之前前一代增加了一行，而处理器方面iPhone5采用的是苹果自家研发的A6处理器（内含两个CPU核心和三个图形核心），性能是A5处理器的两倍，得益于更先进的制程，处理器的核心面积缩小了22%，在大幅提升了性能的同时很好地控制了功耗和发热，iPhone5支持LTE网络,不支持NFC近场芯片。Siri也有升级，支持中文和拓展功能。iPhone 5的网速峰值速率可达到iPhone 4S的7倍。\r\n</p>', 'templates/default/images/imgdata/iphone5_01.jpg', 'templates/default/images/imgdata/iphone5_01.jpg,templates/default/images/imgdata/iphone5_02.jpg,templates/default/images/imgdata/iphone5_03.jpg,templates/default/images/imgdata/iphone5_04.jpg,templates/default/images/imgdata/iphone5_05.jpg,templates/default/images/imgdata/iphone5_03.jpg', 323, 1, 1357786470, 'true', 'true', 1382274617);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_goodsattr`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_goodsattr` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品属性id',
+  `goodsid` smallint(5) unsigned NOT NULL COMMENT '所属分类',
+  `attrname` varchar(30) NOT NULL COMMENT '属性名称',
+  `orderid` mediumint(8) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `pmw_goodsattr`
@@ -3497,6 +3773,38 @@ INSERT INTO `pmw_goods` (`id`, `classid`, `parentid`, `parentstr`, `typeid`, `ty
 INSERT INTO `pmw_goodsattr` (`id`, `goodsid`, `attrname`, `orderid`, `checkinfo`) VALUES
 (1, 10, '颜色', 1, 'true'),
 (2, 10, '型号', 2, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_goodsbrand`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_goodsbrand` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品品牌id',
+  `parentid` mediumint(8) unsigned NOT NULL COMMENT '品牌上级id',
+  `parentstr` varchar(50) NOT NULL COMMENT '品牌上级id字符串',
+  `classname` varchar(30) NOT NULL COMMENT '品牌名称',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `orderid` mediumint(10) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_goodsflag`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_goodsflag` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品标记id',
+  `flag` varchar(30) NOT NULL COMMENT '标记名称',
+  `flagname` varchar(30) NOT NULL COMMENT '标记标识',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `pmw_goodsflag`
@@ -3509,38 +3817,77 @@ INSERT INTO `pmw_goodsflag` (`id`, `flag`, `flagname`, `orderid`) VALUES
 (4, 't', '特价', 3),
 (5, 'h', '热卖', 4);
 
+-- --------------------------------------------------------
+
 --
--- 转存表中的数据 `pmw_goodstype`
+-- 表的结构 `pmw_goodsorder`
 --
 
-INSERT INTO `pmw_goodstype` (`id`, `parentid`, `parentstr`, `classname`, `picurl`, `linkurl`, `orderid`, `checkinfo`) VALUES
-(1, 0, '0,', '手机通讯', '', '', 1, 'true'),
-(2, 0, '0,', '电脑笔记本', '', '', 2, 'true'),
-(3, 0, '0,', '相机 摄相机', '', '', 3, 'true'),
-(4, 0, '0,', '随身视听', '', '', 4, 'true'),
-(5, 0, '0,', '电脑外设', '', '', 5, 'true'),
-(6, 0, '0,', 'DIY装机', '', '', 6, 'true'),
-(7, 0, '0,', '办公用品', '', '', 7, 'true'),
-(8, 1, '0,1,', '通讯产品', '', '', 8, 'true'),
-(9, 1, '0,1,', '手机配件', '', '', 9, 'true'),
-(10, 1, '0,1,', '手机', '', '', 10, 'true'),
-(11, 2, '0,2,', '电脑整机', '', '', 11, 'true'),
-(12, 2, '0,2,', '笔记本', '', '', 12, 'true'),
-(13, 2, '0,2,', '电脑配件', '', '', 13, 'true'),
-(14, 3, '0,3,', '相机配件', '', '', 14, 'true'),
-(15, 3, '0,3,', '数码摄相机', '', '', 15, 'true'),
-(16, 3, '0,3,', '数码相机', '', '', 16, 'true'),
-(17, 4, '0,4,', '电子阅读', '', '', 17, 'true'),
-(18, 4, '0,4,', 'MID', '', '', 18, 'true'),
-(19, 4, '0,4,', 'MP3|MP4', '', '', 19, 'true'),
-(20, 5, '0,5,', '移动硬盘', '', '', 20, 'true'),
-(21, 5, '0,5,', '键盘', '', '', 21, 'true'),
-(22, 5, '0,5,', '鼠标', '', '', 22, 'true'),
-(23, 6, '0,6,', '扩展配件', '', '', 23, 'true'),
-(24, 6, '0,6,', '装机配件', '', '', 24, 'true'),
-(25, 6, '0,6,', '显示器', '', '', 25, 'true'),
-(26, 7, '0,7,', '投影显示', '', '', 26, 'true'),
-(27, 7, '0,7,', '办公打印', '', '', 27, 'true');
+CREATE TABLE IF NOT EXISTS `pmw_goodsorder` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品订单id',
+  `username` varchar(30) NOT NULL COMMENT '会员用户名',
+  `attrstr` text NOT NULL COMMENT '商品列表',
+  `truename` varchar(30) NOT NULL COMMENT '收货人姓名',
+  `telephone` varchar(30) NOT NULL COMMENT '电话',
+  `idcard` varchar(30) NOT NULL COMMENT '证件号码',
+  `zipcode` varchar(30) NOT NULL COMMENT '邮编',
+  `postarea_prov` varchar(10) NOT NULL COMMENT '配送地区_省',
+  `postarea_city` varchar(10) NOT NULL COMMENT '配送地区_市',
+  `postarea_country` varchar(10) NOT NULL COMMENT '配送地区_县',
+  `address` varchar(80) NOT NULL COMMENT '地址',
+  `postmode` smallint(5) NOT NULL COMMENT '配送方式',
+  `paymode` smallint(5) NOT NULL COMMENT '支付方式',
+  `getmode` smallint(5) NOT NULL COMMENT '货到方式',
+  `ordernum` varchar(30) NOT NULL COMMENT '订单号',
+  `postid` varchar(30) NOT NULL COMMENT '运单号',
+  `weight` varchar(10) NOT NULL COMMENT '物品重量',
+  `cost` varchar(10) NOT NULL COMMENT '商品运费',
+  `amount` varchar(10) NOT NULL COMMENT '订单金额',
+  `integral` smallint(5) unsigned NOT NULL COMMENT '积分点数',
+  `buyremark` text NOT NULL COMMENT '购物备注',
+  `sendremark` text NOT NULL COMMENT '发货方备注',
+  `posttime` int(10) unsigned NOT NULL COMMENT '订单时间',
+  `orderid` mediumint(10) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` varchar(255) NOT NULL COMMENT '审核状态',
+  `core` set('true') NOT NULL COMMENT '是否加星',
+  `delstate` set('true') NOT NULL COMMENT '删除状态',
+  `deltime` int(10) unsigned NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_goodstype`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_goodstype` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品类型id',
+  `parentid` mediumint(8) unsigned NOT NULL COMMENT '类型上级id',
+  `parentstr` varchar(50) NOT NULL COMMENT '类型上级id字符串',
+  `classname` varchar(30) NOT NULL COMMENT '类别名称',
+  `picurl` varchar(255) DEFAULT NULL COMMENT '缩略图片',
+  `linkurl` varchar(255) DEFAULT NULL COMMENT '跳转链接',
+  `orderid` mediumint(8) unsigned NOT NULL COMMENT '排列顺序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '隐藏类别',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_info`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_info` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '单页id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目id',
+  `mainid` smallint(5) NOT NULL COMMENT '二级类别id',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `content` mediumtext NOT NULL COMMENT '内容',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- 转存表中的数据 `pmw_info`
@@ -3548,7 +3895,6 @@ INSERT INTO `pmw_goodstype` (`id`, `parentid`, `parentstr`, `classname`, `picurl
 
 INSERT INTO `pmw_info` (`id`, `classid`, `mainid`, `picurl`, `content`, `posttime`) VALUES
 (1, 1, -1, '', '欢迎进入陕西农科化肥有限公司网站。', 1326769494),
-(6, 6, -1, '', '<p style="text-indent:2em;">\r\n	百度，全球最大的中文搜索引擎、最大的中文网站。2000年1月创立于北京中关村。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	1999年底，身在美国硅谷的李彦宏看到了中国互联网及中文搜索引擎服务的巨大发展潜力，抱着技术改变世界的梦想，他毅然辞掉硅谷的高薪工作，携搜索引擎专利技术，于2000年1月1日在中关村创建了百度公司。从最初的不足10人发展至今，员工人数超过12000人。如今的百度，已成为中国最受欢迎、影响力最大的中文网站。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	百度拥有数千名研发工程师，这是中国乃至全球最为优秀的技术团队，这支队伍掌握着世界上最为先进的搜索引擎技术，使百度成为中国掌握世界尖端科学核心技术的中国高科技企业，也使中国成为美国、俄罗斯、和韩国之外，全球仅有的4个拥有搜索引擎核心技术的国家之一。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	从创立之初，百度便将“让人们最便捷地获取信息，找到所求”作为自己的使命，成立以来，公司秉承“以用户为导向”的理念，不断坚持技术创新，致力于为用户提供“简单，可依赖”的互联网搜索产品及服务，其中包括：以网络搜索为主的功能性搜索，以贴吧为主的社区搜索，针对各区域、行业所需的垂直搜索，Mp3搜索，以及门户频道、IM等，全面覆盖了中文网络世界所有的搜索需求，根据第三方权威数据，百度在中国的搜索份额接近80%。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	在面对用户的搜索产品不断丰富的同时，百度还创新性地推出了基于搜索的营销推广服务，并成为最受企业青睐的互联网营销推广平台。目前，中国已有数十万家企业使用了百度的搜索推广服务，不断提升着企业自身的品牌及运营效率。通过持续的商业模式创新，百度正进一步带动整个互联网行业和中小企业的经济增长，推动社会经济的发展和转型。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	为推动中国数百万中小网站的发展，百度借助超大流量的平台优势，联合所有优质的各类网站，建立了世界上最大的网络联盟，使各类企业的搜索推广、品牌营销的价值、覆盖面均大面积提升。与此同时，各网站也在联盟大家庭的互助下，获得最大的生存与发展机会。\r\n</p>\r\n<hr style="page-break-after:always;" class="ke-pagebreak" />\r\n<p style="text-indent:2em;">\r\n	作为国内的一家知名企业，百度也一直秉承“弥合信息鸿沟，共享知识社会”的责任理念，坚持履行企业公民的社会责任。成立来，百度利用自身优势积极投身公益事业，先后投入巨大资源，为盲人、少儿、老年人群体打造专门的搜索产品，解决了特殊群体上网难问题,极大地弥补了社会信息鸿沟问题。此外，在加速推动中国信息化进程、净化网络环境、搜索引擎教育及提升大学生就业率等方面，百度也一直走在行业领先的地位。2011年初，百度还特别成立了百度基金会，围绕知识教育、环境保护、灾难救助等领域，更加系统规范地管理和践行公益事业。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	2005年，百度在美国纳斯达克上市，一举打破首日涨幅最高等多项纪录，并成为首家进入纳斯达克成分股的中国公司。通过数年来的市场表现，百度优异的业绩与值得依赖的回报，使之成为中国企业价值的代表，傲然屹立于全球资本市场。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	2009年，百度更是推出全新的框计算技术概念，并基于此理念推出百度开放平台，帮助更多优秀的第三方开发者利用互联网平台自主创新、自主创业，在大幅提升网民互联网使用体验的同时，带动起围绕用户需求进行研发的产业创新热潮，对中国互联网产业的升级和发展产生巨大的拉动效应。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	今天，百度已经成为中国最具价值的品牌之一，英国《金融时报》将百度列为“中国十大世界级品牌”，成为这个榜单中最年轻的一家公司，也是唯一一家互联网公司。而“亚洲最受尊敬企业”、“全球最具创新力企业”、“中国互联网力量之星”等一系列荣誉称号的获得，也无一不向外界展示着百度成立数年来的成就。\r\n</p>\r\n<br />\r\n<p style="text-indent:2em;">\r\n	多年来，百度董事长兼CEO李彦宏，率领百度人所形成的“简单可依赖”的核心文化，深深地植根于百度。这是一个充满朝气、求实坦诚的公司，以搜索改变生活，推动人类的文明与进步，促进中国经济的发展为己任，正朝着更为远大的目标而迈进。\r\n</p>', 1326769513),
 (3, 3, -1, 'templates/default/images/aboutus_img.png', '<p style="text-indent:2em;">\r\n	陕西农科化肥有限公司（简称“陕西农科”、“农科化肥”）致力于建立符合中国农业发展要求和农资行业未来发展需要的农资流通体系，是专业化的品牌农资连锁机构和农化服务提供商。\r\n</p>\r\n<p style="text-indent:2em;">\r\n	公司立足于农资流通核心业务，以资源和网络为中心，建立了厂商联合、批零对接的营销网络\r\n</p>', 1326769523),
 (4, 9, -1, '', '<div style="float:left;line-height:35px;font-size:1em;">\r\n	<strong> <span style="color:#333333;"> \r\n	<p>\r\n		地址：西安市高新区沣惠南路18号西格玛大厦5层\r\n	</p>\r\n	<p>\r\n		邮编：710075\r\n	</p>\r\n	<p>\r\n		电话：029-82301199\r\n	</p>\r\n	<p>\r\n		传真：029-82301188\r\n	</p>\r\n</span></strong>\r\n</div>\r\n<div style="float:right;">\r\n	<img src="templates/default/images/baiduditu.png" width="450" />\r\n</div>', 1326769535),
 (15, 25, -1, '', '<p>\r\n	<img src="templates/default/images/chinamap.gif" height="705" width="600" />\r\n</p>\r\n<p style="text-indent:2em;">\r\n	陕西农科总部设在西安，主要负责农科连锁的战略规划、网络建设布局、宣传策划、品牌建设、连锁店的管理与指导、农资商品资源集中采购等职能。目前，公司在陕西省内有1700多家终端连锁销售网点，精心布局出遍布三秦大地的农资商品营销服务网络，并向陕西周边形成了强大的辐射优势。\r\n</p>', 1382015950),
@@ -3565,6 +3911,31 @@ INSERT INTO `pmw_info` (`id`, `classid`, `mainid`, `picurl`, `content`, `posttim
 (16, 30, -1, '', '<p style="text-indent:2em;">\r\n	陕西农科在西安、咸阳、宝鸡、渭南及陕南、陕北设有15个大型农资物流配送中心。各配送中心的主要职能是在公司总部的统一指导下，承担农资商品的区域储备、调运、配送、销售，及连锁店的改造、建设、管理、形象宣传、服务等工作。\r\n</p>\r\n<p style="text-indent:2em;">\r\n	目前，公司以“农科连锁”的新品牌形象，通过直营和加盟的方式设立了1700多家农资连锁店。通过对连锁店实施“五统一”的管理模式，即统一的经营理念、统一的店名店貌、统一的采购配送、统一的价格、统一的服务规范。使基层传统农资商店的形象得到极大的改观，方便农民放心选购农资商品。\r\n</p>\r\n<p style="text-align:center;">\r\n	<img src="templates/default/images/fengb.jpg" height="138" width="600" /> \r\n</p>', 1382015993),
 (17, 32, -1, '', '<p style="text-indent:2em;">坚持“尊重、培养、发挥、发展”的用人理念，建立与农科战略目标相匹配的人力资源规划，创建积极奋进、融洽和谐的工作氛围，汇集农资行业众多领袖级经营人才，及其他领域优秀管理人才，形成融合不同文化、崇尚个性与创新、提倡团队合作的人才成长空间。\r\n</p>\r\n<p style="text-indent:2em;">建立公平、公正、公开，充分发挥个人潜能的用人机制，确保激励机制与人才的贡献相匹配，培训体系与人才的职业生涯发展相呼应。在实现公司战略目标的同时，为每位员工提供充分实现自我价值的发展空间。促使人才围绕农科战略目标，不断在更高更新的起点上创造和实现人生价值。\r\n</p>\r\n<p style="text-align:center;">\r\n	<img src="templates/default/images/renli2.jpg" height="138" width="600" />\r\n</p>', 1382017315);
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_infoclass`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_infoclass` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '栏目上级id',
+  `parentstr` varchar(50) NOT NULL COMMENT '栏目上级id字符串',
+  `infotype` tinyint(1) unsigned NOT NULL COMMENT '栏目类型',
+  `classname` varchar(30) NOT NULL COMMENT '栏目名称',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picwidth` varchar(5) NOT NULL COMMENT '缩略图宽度',
+  `picheight` varchar(5) NOT NULL COMMENT '缩略图高度',
+  `seotitle` varchar(80) NOT NULL COMMENT 'SEO标题',
+  `keywords` varchar(50) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+
 --
 -- 转存表中的数据 `pmw_infoclass`
 --
@@ -3573,7 +3944,7 @@ INSERT INTO `pmw_infoclass` (`id`, `siteid`, `parentid`, `parentstr`, `infotype`
 (1, 1, 0, '0,', 0, '网站公告', '', '', '', '', '', '', '', 1, 'true'),
 (2, 1, 26, '0,26,', 0, '公司简介', '', '', '', '', '', '', '', 2, 'true'),
 (3, 1, 26, '0,26,', 0, '关于农科摘要', '', '', '', '', '', '', '', 3, 'true'),
-(4, 1, 0, '0,', 1, '新闻模块', '', '', '', '', '', '', '', 9, 'true'),
+(4, 1, 0, '0,', 1, '新闻动态', '', '', '', '', '', '', '', 9, 'true'),
 (26, 1, 0, '0,', 0, '关于农科', '', '', '', '', '', '', '', 4, 'true'),
 (25, 1, 29, '0,29,', 0, '网点分布', '', '', '', '', '', '', '', 28, 'true'),
 (9, 1, 0, '0,', 0, '联系我们', '', '', '', '', '', '', '', 24, 'true'),
@@ -3594,8 +3965,22 @@ INSERT INTO `pmw_infoclass` (`id`, `siteid`, `parentid`, `parentstr`, `infotype`
 (28, 1, 0, '0,', 0, '农化服务', '', '', '', '', '', '', '', 11, 'true'),
 (29, 1, 0, '0,', 0, '销售网络', '', '', '', '', '', '', '', 12, 'true'),
 (30, 1, 29, '0,29,', 0, '连锁风貌', '', '', '', '', '', '', '', 30, 'true'),
-(31, 1, 0, '0,', 0, '人力资源', '', '', '', '', '', '', '', 13, 'true'),
+(31, 1, 0, '0,', 0, '招贤纳士', '', '', '', '', '', '', '', 13, 'true'),
 (32, 1, 31, '0,31,', 0, '人才战略', '', '', '', '', '', '', '', 32, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_infoflag`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_infoflag` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '信息标记id',
+  `flag` varchar(30) NOT NULL COMMENT '标记名称',
+  `flagname` varchar(30) NOT NULL COMMENT '标记标识',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `pmw_infoflag`
@@ -3608,6 +3993,42 @@ INSERT INTO `pmw_infoflag` (`id`, `flag`, `flagname`, `orderid`) VALUES
 (4, 'a', '特荐', 3),
 (5, 's', '滚动', 4),
 (6, 'j', '跳转', 5);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_infoimg`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_infoimg` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '图片信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属栏目上级id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属栏目上级id字符串',
+  `mainid` smallint(5) NOT NULL COMMENT '二级类别id',
+  `mainpid` smallint(5) NOT NULL COMMENT '二级类别父id',
+  `mainpstr` varchar(80) NOT NULL COMMENT '二级累呗父id字符串',
+  `title` varchar(80) NOT NULL COMMENT '标题',
+  `colorval` char(10) NOT NULL COMMENT '字体颜色',
+  `boldval` char(10) NOT NULL COMMENT '字体加粗',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `source` varchar(50) NOT NULL COMMENT '文章来源',
+  `author` varchar(50) NOT NULL COMMENT '作者编辑',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `keywords` varchar(50) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '摘要',
+  `content` mediumtext NOT NULL COMMENT '详细内容',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picarr` text NOT NULL COMMENT '组图',
+  `hits` mediumint(8) unsigned NOT NULL COMMENT '点击次数',
+  `orderid` int(10) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  `delstate` set('true') NOT NULL COMMENT '删除状态',
+  `deltime` int(10) unsigned NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `pmw_infoimg`
@@ -3630,15 +4051,95 @@ INSERT INTO `pmw_infoimg` (`id`, `siteid`, `classid`, `parentid`, `parentstr`, `
 (14, 1, 13, 0, '0,', -1, -1, '', '联系我们', '', '', '', '', 'admin', '', '', '', '', 'templates/default/images/banner/contact.jpg', '', 87, 14, 1326770383, 'true', '', 0),
 (15, 1, 13, 0, '0,', -1, -1, '', '关于农科', '', '', '', '', '', '', '', '', '', 'templates/default/images/banner/about.jpg', '', 53, 15, 1326770404, 'true', '', 0);
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_infolist`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_infolist` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '列表信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属栏目上级id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属栏目上级id字符串',
+  `mainid` smallint(5) NOT NULL COMMENT '二级类别id',
+  `mainpid` smallint(5) NOT NULL COMMENT '二级类别上级id',
+  `mainpstr` varchar(80) NOT NULL COMMENT '二级类别上级id字符串',
+  `title` varchar(80) NOT NULL COMMENT '标题',
+  `colorval` char(10) NOT NULL COMMENT '字体颜色',
+  `boldval` char(10) NOT NULL COMMENT '字体加粗',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `source` varchar(50) NOT NULL COMMENT '文章来源',
+  `author` varchar(50) NOT NULL COMMENT '作者编辑',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `keywords` varchar(50) NOT NULL COMMENT '关键词',
+  `description` varchar(255) NOT NULL COMMENT '摘要',
+  `content` mediumtext NOT NULL COMMENT '详细内容',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picarr` text NOT NULL COMMENT '组图',
+  `hits` mediumint(8) unsigned NOT NULL COMMENT '点击次数',
+  `orderid` int(10) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  `delstate` set('true') NOT NULL COMMENT '删除状态',
+  `deltime` int(10) unsigned NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+
 --
 -- 转存表中的数据 `pmw_infolist`
 --
 
 INSERT INTO `pmw_infolist` (`id`, `siteid`, `classid`, `parentid`, `parentstr`, `mainid`, `mainpid`, `mainpstr`, `title`, `colorval`, `boldval`, `flag`, `source`, `author`, `linkurl`, `keywords`, `description`, `content`, `picurl`, `picarr`, `hits`, `orderid`, `posttime`, `checkinfo`, `delstate`, `deltime`) VALUES
-(20, 1, 21, 4, '0,4,', -1, -1, '', '哪些化肥不能混施？　五种情况', '', '', '', '', '', '', '', '', '<p>\r\n	　　一些农民对化肥的性能不了解，胡乱混施化肥，使一些农作物干枯、烧死、减产。现告诉农民朋友哪些化肥不能混施，以便在生产中合理使用。\r\n</p>\r\n<p>\r\n	　　第一，过磷酸钙不能与草木灰、石灰氮、石灰等碱性肥料混用。因过磷酸钙含有游离酸，呈酸性反应，而上述碱性肥料含钙质较多，若二者混合施用，会引起酸碱反应，降低肥效，又会使钙固定磷素，导致“两败俱伤”。磷矿粉、骨粉等难溶性磷肥，也不能与草木灰、石灰氨、石灰等碱性肥料混用，否则会中和土壤内的有机酸类物质，使难溶性磷肥更难溶解，作物无法吸收利用。\r\n</p>\r\n<p>\r\n	　　第二，钙镁磷肥等碱性肥料不能与铵态氨肥混施。因为碱性肥料与铵态氮肥如硫酸铵、碳铵、氯化铵、硝酸铵等混施，会导致和增加氨的挥发损失，降低肥效。\r\n</p>\r\n<p>\r\n	　　第三，人畜粪尿等农家肥不能与钙镁磷肥、草木灰、石灰氮、石灰等碱性肥料混施。因为人畜粪尿中的主要成分是氮，若与強碱性肥料混用，则会中和而失效。另外，未腐熟的农家肥不能与硝酸铵混施，因为未腐熟的农家肥要经过分解腐烂后才能被作物吸收利用，若与硝酸铵混施，未腐熟的农家肥在分解过程中氮素会损失，所以不能同施，否则二者氮素都会受损，降低肥效。\r\n</p>\r\n<p>\r\n	　　第四，化肥不能与根瘤菌肥等细菌肥料混施。因为化肥有较強的腐蚀性、挥发性和吸水性，若与细菌肥料混合施用，会杀伤或抑制活菌体，使肥料失效。\r\n</p>\r\n<p>\r\n	　　第五，氨水不能与人粪尿、草木灰、钾肥、磷酸铵、氯化钾、尿素、碳铵等混施。碳铵不能与草木灰、人粪尿、钾肥氮混施。硫酸铵不能与草木灰、碳铵，混施。硝酸铵不能与草木灰、氨水等混施。<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 总之，在施肥中，农民朋友应多询问一下技术人员，以免混错肥，让自己的庄稼受损失。\r\n</p>', '', '', 27, 20, 1382009650, 'true', '', 0),
-(21, 1, 22, 4, '0,4,', -1, -1, '', '苹果贮藏防病害 确保效益成倍翻', '', '', '', '', '', '', '', '苹果贮藏期病害包括生理病害和微生物病害。生理病害是因生产或贮藏条件不适或缺乏矿质元素而引起的，微生物病害是由于病原微生物侵染所致。', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 苹果贮藏期病害包括生理病害和微生物病害。生理病害是因生产或贮藏条件不适或缺乏矿质元素而引起的，微生物病害是由于病原微生物侵染所致。苹果贮藏期主要病害及其防治方法如下： \r\n</p><p>&#12288;&#12288;<strong>一、生理病害</strong></p>\r\n<p>&#12288;&#12288;1、苹果苦痘病：主要是贮藏期温度过高有关。发病初期果皮下果肉褐变，果面出现颜色稍暗的凹陷圆斑，绿色品种呈深绿色，红色品种呈紫红色，发生部位靠近果顶。贮藏初期1~2个月内发病最重。</p>\r\n<p>&#12288;&#12288;防治方法：生长后期控制施氮量，采收后用2－6％的氯化钙或硝酸钙浸果5分钟，贮藏温度控制在0℃左右。</p>\r\n<p>&#12288;&#12288;2、虎皮病：症状多发生在不着色部位，初期果皮呈淡黄褐色，后期逐渐变深，形成不规则微凹陷状，果皮易破裂，严重时病斑连片，呈烫伤状。苹果采收过早、成熟度较低是虎皮病发生的主要原因。</p>\r\n<p>&#12288;&#12288;防治方法：&nbsp;①适当晚采，促进果实着色。②加强贮藏库通风，库内果箱码放不能过度密挤，以防后期温度过高。③用0.25~0.35%乙氧基喹药液喷施，还可用喷有二苯胺的药纸包果，用石蜡油纸包果也有较好的防治效果。</p>\r\n<p>&#12288;&#12288;3、果肉褐变病：该病多是果实采收偏晚、成熟过度，贮藏温湿度及气调贮藏氧浓度过高所致。</p>\r\n<p>&#12288;&#12288;防治方法：⑴适时采收，控制好贮藏库温湿度，防止果面结露。⑵用2~4％氯化钙液浸果等措施加以预防。</p>\r\n<p>&#12288;&#12288;<strong>二、真菌病害</strong></p>\r\n<p>&#12288;&#12288;真菌病害包括轮纹病、炭疽病、青霉病和霉心病等，因为这几种病害在果实生长发育时也大量发生。</p>\r\n<p>&#12288;&#12288;1、苹果轮纹病：为生长期主要病害，果实染病后潜伏期较长，成熟期及贮藏期高温多湿时易发病，患处有淡褐色同心轮纹，病部稍隆起。</p>\r\n<p>&#12288;&#12288;预防办法：贮藏前要严格剔除病果，用多菌灵或甲基托布津500－1&nbsp;000倍液浸泡果实。轮纹病和炭疽病：采前可喷50%多菌灵或50%甲基托布津800倍液，对两病有较好的防治效果。贮藏前，用500~1000倍50%多菌灵或800倍50%甲基托布津药液浸泡果实，也可以用仲丁胺药或多功能保鲜纸包果。</p>\r\n<p>&#12288;&#12288;2、炭疽病：真菌病害，生长季节借雨水传播，高温多湿条件下发病严重。初呈褐色小点，后逐步扩大，呈同心轮纹状病斑。病部稍凹陷，有苦味。</p>\r\n<p>&#12288;&#12288;防治措施：苹果轮纹病和炭疽病均在田间已侵染病菌，生长季节应加强喷药防治。对病害重发园的果实，贮藏前用50%甲基托布津或25%多菌灵500~1&nbsp;000倍液浸果10分钟。</p>\r\n<p>&#12288;&#12288;3、褐腐病：多发生在苹果生长后期及采收以后，病菌从伤口侵入，发病后果面先出现浅褐色软腐状小斑，随后迅速扩散，造成全果腐烂。</p>\r\n<p>&#12288;&#12288;防治方法：生长期清除病果，防止果实裂口、机械损伤，果实近成熟时用50％多菌灵600~800倍液或50％甲基托布津700~800倍液喷施。</p>\r\n<p>&#12288;&#12288;4、青霉病：贮藏中最常见也是危害最重的病害之一。最先发病部位局部腐烂、湿软，呈黄白色，条件适宜时发展迅速，10天后全果腐烂，有特殊霉味。空气潮湿时，病斑表面产生青绿色霉菌，病菌主要从伤口侵染。</p>\r\n<p>&#12288;&#12288;防治措施：贮藏场所要搞好清洁卫生，贮藏前选用800~1000倍甲基托布津、多菌灵药液浸泡果实。</p><p></p>', '', '', 84, 21, 1382013797, 'true', '', 0),
-(22, 1, 24, 28, '0,28,', -1, -1, '', '樱桃冬季重“三剪”', '', '', '', '', '', '', '', '', ' <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一、短截。剪去一年生新梢的一部分叫短截。根据剪去的程度不同，又分轻、中、重和极重短截。适度短截对枝条有局部刺激作用，可以促进剪口芽萌发，达到分枝、延长、更新、控冠等目的；但短截后总的枝叶量减少，有延缓母枝加粗的抑制作用。&nbsp; \r\n</p><p>&#12288;&#12288;1、轻短截。短截程度较轻，一般只剪去枝条的1/4-1/3。轻短截有利于削弱枝条的顶端优势，提高萌芽率，增加短枝量，形成较多的花束状果枝。在幼树上对水平枝、斜生枝进行轻短截，特别是对红灯、大紫、早紫、红樱桃等成枝力强的品种，多行轻短截，有利于提早结果。在有空隙的地方，也可采用轻短截，增加短枝量，缓和强枝的生长势。&nbsp;</p>\r\n<p>&#12288;&#12288;2、中短截。短截程度稍重，一般剪去枝条的1/2左右，有利于增加分枝数量，促进后部果枝的长势。在樱桃幼树上对骨干枝的延长枝和外围发育枝进行中短截，一般可抽生3-5个中长枝、5-6个叶丛枝；对树膛内的中庸枝进行中短截，在成枝力强的品种上一般只抽生2个中长枝；在成枝力弱的品种上，除可抽生1-2个中长枝外，还能抽生3-4个叶丛枝。&nbsp;</p>\r\n<p>&#12288;&#12288;3、重短截。短截程度较重，一般剪去枝条的2/3左右。此法多用于幼龄樱桃树的平衡树势，或在骨干枝先端培养结果枝组，能加强顶端优势，促进新梢生长，提高营养枝和中、长枝的比例。欲在骨干枝的背上枝培养枝组时，第一年先重短截，第二年对重短截后发出的新梢，强者保留3-4个芽，再极重短截，培养成结果枝组；中等的可缓放，形成单轴型结果枝组。&nbsp;</p>\r\n<p>&#12288;&#12288;4、极重短截。短截程度最重，只留枝条基部4-5个芽，可用此法控制过旺枝条。对要疏除的枝条基部有腋花芽时，用极重短截，保留基部的花芽，待结果以后再疏除。枝条基部无腋花芽，极重短截后可培养成花束状结果枝。&nbsp;</p>\r\n<p>&#12288;&#12288;二、疏枝。就是把樱桃枝条从基部剪除，主要疏除过密过挤的辅养枝、树形紊乱的大枝、徒长枝、细弱无效枝、病虫枝等。疏枝的作用是可以改善光照条件，减少营养消耗，使旺树转化为中等树，促进多成花，平衡枝与枝之间的势力。&nbsp;</p>\r\n<p>&#12288;&#12288;1、疏枝具有双重作用。①由于疏掉了一部分枝叶，对全树和被疏掉的母枝有削弱和缓和长势的作用。疏除的枝越大，量越多，对全树和被疏除的母枝削弱和缓势的作用越明显。②疏枝对局部有抑前促后的作用。即对疏除枝造成伤口的上部枝条有削弱作用，而对伤口下部枝条有促进生长的作用。&nbsp;</p>\r\n<p>&#12288;&#12288;2、大伤口要涂保护剂。在樱桃树上，一次疏枝不可过多，对大枝也不宜疏除，掌握适时适量为好。以免造成伤口流胶或干裂，削弱树势。如树形紊乱，非疏除不可时，也要掌握分年度、逐步疏除大枝，防止过急。对疏除造成的大伤口，由于伤口较大，表面粗糙，要用刀将锯口削平，用2%硫酸铜溶液，或用0.1%升汞水消毒，然后涂以保护剂，以防伤口干裂或腐烂。保护剂有以下几种：①保护蜡。用松香2.5千克、黄蜡1.5千克、动物油0.5千克配制。先把动物油放入锅中，加温火，再将松香粉和黄蜡放入，不断搅拌至全部熔化，熄火后冷却即成。使用时用火熔化，然后用毛刷蘸蜡涂抹锯口。②豆油铜素剂。用硫酸铜1千克、豆油1千克、熟石灰1千克制成。先把硫酸铜和熟石灰研成细粉，然后把豆油倒入锅内熬煮至沸，即将硫酸铜和熟石灰加入油中，充分搅拌，冷却后即可使用。③牛粪石灰浆。用牛粪16份、熟石灰和草木灰各8份、细河沙1份，加水调制而成。制成后呈浆糊状，用时用刷子把灰浆抹在锯口上。&nbsp;</p>\r\n<p>&#12288;&#12288;三、回缩。将多年生枝剪除或锯掉一部分，留下一部分称回缩。可用于结果枝和结果枝组的更新复壮，盛果期树的新梢生长势逐渐减弱，同时有些枝条下垂，树冠中下部出现光秃现象。为了改善光照，减少大枝上的小枝数目，使养分和水分集中供应留下的枝条，回缩对恢复树势很有利。但同时应加强肥水管理，以使枝条正常生长和结果。回缩的部位和程度不同，其修剪反应也不一样，若在壮旺分枝处回缩，去除前面的下垂枝、衰弱枝，可抬高多年生枝的角度并缩短其长度，利于养分集中，能起到更新复壮作用；若在细弱分枝处回缩，则有抑制其生长势的作用，多年生枝回缩一般伤口较大，保护不好也可能削弱锯口枝的生长势。&nbsp;&nbsp;&nbsp;&nbsp;(贾士龙)</p><p></p>', '', '', 175, 22, 1382014708, 'true', '', 0),
-(23, 1, 21, 4, '0,4,', -1, -1, '', '测试', '', '', '', '', '', '', '', '测试', '测试', '', '', 55, 23, 1382077488, 'true', '', 0);
+(20, 1, 21, 4, '0,4,', -1, -1, '', '哪些化肥不能混施？　五种情况', '', '', '', '', '', '', '', '', '<p>\r\n	　　一些农民对化肥的性能不了解，胡乱混施化肥，使一些农作物干枯、烧死、减产。现告诉农民朋友哪些化肥不能混施，以便在生产中合理使用。\r\n</p>\r\n<p>\r\n	　　第一，过磷酸钙不能与草木灰、石灰氮、石灰等碱性肥料混用。因过磷酸钙含有游离酸，呈酸性反应，而上述碱性肥料含钙质较多，若二者混合施用，会引起酸碱反应，降低肥效，又会使钙固定磷素，导致“两败俱伤”。磷矿粉、骨粉等难溶性磷肥，也不能与草木灰、石灰氨、石灰等碱性肥料混用，否则会中和土壤内的有机酸类物质，使难溶性磷肥更难溶解，作物无法吸收利用。\r\n</p>\r\n<p>\r\n	　　第二，钙镁磷肥等碱性肥料不能与铵态氨肥混施。因为碱性肥料与铵态氮肥如硫酸铵、碳铵、氯化铵、硝酸铵等混施，会导致和增加氨的挥发损失，降低肥效。\r\n</p>\r\n<p>\r\n	　　第三，人畜粪尿等农家肥不能与钙镁磷肥、草木灰、石灰氮、石灰等碱性肥料混施。因为人畜粪尿中的主要成分是氮，若与強碱性肥料混用，则会中和而失效。另外，未腐熟的农家肥不能与硝酸铵混施，因为未腐熟的农家肥要经过分解腐烂后才能被作物吸收利用，若与硝酸铵混施，未腐熟的农家肥在分解过程中氮素会损失，所以不能同施，否则二者氮素都会受损，降低肥效。\r\n</p>\r\n<p>\r\n	　　第四，化肥不能与根瘤菌肥等细菌肥料混施。因为化肥有较強的腐蚀性、挥发性和吸水性，若与细菌肥料混合施用，会杀伤或抑制活菌体，使肥料失效。\r\n</p>\r\n<p>\r\n	　　第五，氨水不能与人粪尿、草木灰、钾肥、磷酸铵、氯化钾、尿素、碳铵等混施。碳铵不能与草木灰、人粪尿、钾肥氮混施。硫酸铵不能与草木灰、碳铵，混施。硝酸铵不能与草木灰、氨水等混施。<br />\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 总之，在施肥中，农民朋友应多询问一下技术人员，以免混错肥，让自己的庄稼受损失。\r\n</p>', '', '', 32, 20, 1382009650, 'true', '', 0),
+(21, 1, 22, 4, '0,4,', -1, -1, '', '苹果贮藏防病害 确保效益成倍翻', '', '', '', '', '', '', '', '苹果贮藏期病害包括生理病害和微生物病害。生理病害是因生产或贮藏条件不适或缺乏矿质元素而引起的，微生物病害是由于病原微生物侵染所致。', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 苹果贮藏期病害包括生理病害和微生物病害。生理病害是因生产或贮藏条件不适或缺乏矿质元素而引起的，微生物病害是由于病原微生物侵染所致。苹果贮藏期主要病害及其防治方法如下： \r\n</p><p>&#12288;&#12288;<strong>一、生理病害</strong></p>\r\n<p>&#12288;&#12288;1、苹果苦痘病：主要是贮藏期温度过高有关。发病初期果皮下果肉褐变，果面出现颜色稍暗的凹陷圆斑，绿色品种呈深绿色，红色品种呈紫红色，发生部位靠近果顶。贮藏初期1~2个月内发病最重。</p>\r\n<p>&#12288;&#12288;防治方法：生长后期控制施氮量，采收后用2－6％的氯化钙或硝酸钙浸果5分钟，贮藏温度控制在0℃左右。</p>\r\n<p>&#12288;&#12288;2、虎皮病：症状多发生在不着色部位，初期果皮呈淡黄褐色，后期逐渐变深，形成不规则微凹陷状，果皮易破裂，严重时病斑连片，呈烫伤状。苹果采收过早、成熟度较低是虎皮病发生的主要原因。</p>\r\n<p>&#12288;&#12288;防治方法：&nbsp;①适当晚采，促进果实着色。②加强贮藏库通风，库内果箱码放不能过度密挤，以防后期温度过高。③用0.25~0.35%乙氧基喹药液喷施，还可用喷有二苯胺的药纸包果，用石蜡油纸包果也有较好的防治效果。</p>\r\n<p>&#12288;&#12288;3、果肉褐变病：该病多是果实采收偏晚、成熟过度，贮藏温湿度及气调贮藏氧浓度过高所致。</p>\r\n<p>&#12288;&#12288;防治方法：⑴适时采收，控制好贮藏库温湿度，防止果面结露。⑵用2~4％氯化钙液浸果等措施加以预防。</p>\r\n<p>&#12288;&#12288;<strong>二、真菌病害</strong></p>\r\n<p>&#12288;&#12288;真菌病害包括轮纹病、炭疽病、青霉病和霉心病等，因为这几种病害在果实生长发育时也大量发生。</p>\r\n<p>&#12288;&#12288;1、苹果轮纹病：为生长期主要病害，果实染病后潜伏期较长，成熟期及贮藏期高温多湿时易发病，患处有淡褐色同心轮纹，病部稍隆起。</p>\r\n<p>&#12288;&#12288;预防办法：贮藏前要严格剔除病果，用多菌灵或甲基托布津500－1&nbsp;000倍液浸泡果实。轮纹病和炭疽病：采前可喷50%多菌灵或50%甲基托布津800倍液，对两病有较好的防治效果。贮藏前，用500~1000倍50%多菌灵或800倍50%甲基托布津药液浸泡果实，也可以用仲丁胺药或多功能保鲜纸包果。</p>\r\n<p>&#12288;&#12288;2、炭疽病：真菌病害，生长季节借雨水传播，高温多湿条件下发病严重。初呈褐色小点，后逐步扩大，呈同心轮纹状病斑。病部稍凹陷，有苦味。</p>\r\n<p>&#12288;&#12288;防治措施：苹果轮纹病和炭疽病均在田间已侵染病菌，生长季节应加强喷药防治。对病害重发园的果实，贮藏前用50%甲基托布津或25%多菌灵500~1&nbsp;000倍液浸果10分钟。</p>\r\n<p>&#12288;&#12288;3、褐腐病：多发生在苹果生长后期及采收以后，病菌从伤口侵入，发病后果面先出现浅褐色软腐状小斑，随后迅速扩散，造成全果腐烂。</p>\r\n<p>&#12288;&#12288;防治方法：生长期清除病果，防止果实裂口、机械损伤，果实近成熟时用50％多菌灵600~800倍液或50％甲基托布津700~800倍液喷施。</p>\r\n<p>&#12288;&#12288;4、青霉病：贮藏中最常见也是危害最重的病害之一。最先发病部位局部腐烂、湿软，呈黄白色，条件适宜时发展迅速，10天后全果腐烂，有特殊霉味。空气潮湿时，病斑表面产生青绿色霉菌，病菌主要从伤口侵染。</p>\r\n<p>&#12288;&#12288;防治措施：贮藏场所要搞好清洁卫生，贮藏前选用800~1000倍甲基托布津、多菌灵药液浸泡果实。</p><p></p>', '', '', 86, 21, 1382013797, 'true', '', 0),
+(22, 1, 24, 28, '0,28,', -1, -1, '', '樱桃冬季重“三剪”', '', '', '', '', '', '', '', '', ' <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一、短截。剪去一年生新梢的一部分叫短截。根据剪去的程度不同，又分轻、中、重和极重短截。适度短截对枝条有局部刺激作用，可以促进剪口芽萌发，达到分枝、延长、更新、控冠等目的；但短截后总的枝叶量减少，有延缓母枝加粗的抑制作用。&nbsp; \r\n</p><p>&#12288;&#12288;1、轻短截。短截程度较轻，一般只剪去枝条的1/4-1/3。轻短截有利于削弱枝条的顶端优势，提高萌芽率，增加短枝量，形成较多的花束状果枝。在幼树上对水平枝、斜生枝进行轻短截，特别是对红灯、大紫、早紫、红樱桃等成枝力强的品种，多行轻短截，有利于提早结果。在有空隙的地方，也可采用轻短截，增加短枝量，缓和强枝的生长势。&nbsp;</p>\r\n<p>&#12288;&#12288;2、中短截。短截程度稍重，一般剪去枝条的1/2左右，有利于增加分枝数量，促进后部果枝的长势。在樱桃幼树上对骨干枝的延长枝和外围发育枝进行中短截，一般可抽生3-5个中长枝、5-6个叶丛枝；对树膛内的中庸枝进行中短截，在成枝力强的品种上一般只抽生2个中长枝；在成枝力弱的品种上，除可抽生1-2个中长枝外，还能抽生3-4个叶丛枝。&nbsp;</p>\r\n<p>&#12288;&#12288;3、重短截。短截程度较重，一般剪去枝条的2/3左右。此法多用于幼龄樱桃树的平衡树势，或在骨干枝先端培养结果枝组，能加强顶端优势，促进新梢生长，提高营养枝和中、长枝的比例。欲在骨干枝的背上枝培养枝组时，第一年先重短截，第二年对重短截后发出的新梢，强者保留3-4个芽，再极重短截，培养成结果枝组；中等的可缓放，形成单轴型结果枝组。&nbsp;</p>\r\n<p>&#12288;&#12288;4、极重短截。短截程度最重，只留枝条基部4-5个芽，可用此法控制过旺枝条。对要疏除的枝条基部有腋花芽时，用极重短截，保留基部的花芽，待结果以后再疏除。枝条基部无腋花芽，极重短截后可培养成花束状结果枝。&nbsp;</p>\r\n<p>&#12288;&#12288;二、疏枝。就是把樱桃枝条从基部剪除，主要疏除过密过挤的辅养枝、树形紊乱的大枝、徒长枝、细弱无效枝、病虫枝等。疏枝的作用是可以改善光照条件，减少营养消耗，使旺树转化为中等树，促进多成花，平衡枝与枝之间的势力。&nbsp;</p>\r\n<p>&#12288;&#12288;1、疏枝具有双重作用。①由于疏掉了一部分枝叶，对全树和被疏掉的母枝有削弱和缓和长势的作用。疏除的枝越大，量越多，对全树和被疏除的母枝削弱和缓势的作用越明显。②疏枝对局部有抑前促后的作用。即对疏除枝造成伤口的上部枝条有削弱作用，而对伤口下部枝条有促进生长的作用。&nbsp;</p>\r\n<p>&#12288;&#12288;2、大伤口要涂保护剂。在樱桃树上，一次疏枝不可过多，对大枝也不宜疏除，掌握适时适量为好。以免造成伤口流胶或干裂，削弱树势。如树形紊乱，非疏除不可时，也要掌握分年度、逐步疏除大枝，防止过急。对疏除造成的大伤口，由于伤口较大，表面粗糙，要用刀将锯口削平，用2%硫酸铜溶液，或用0.1%升汞水消毒，然后涂以保护剂，以防伤口干裂或腐烂。保护剂有以下几种：①保护蜡。用松香2.5千克、黄蜡1.5千克、动物油0.5千克配制。先把动物油放入锅中，加温火，再将松香粉和黄蜡放入，不断搅拌至全部熔化，熄火后冷却即成。使用时用火熔化，然后用毛刷蘸蜡涂抹锯口。②豆油铜素剂。用硫酸铜1千克、豆油1千克、熟石灰1千克制成。先把硫酸铜和熟石灰研成细粉，然后把豆油倒入锅内熬煮至沸，即将硫酸铜和熟石灰加入油中，充分搅拌，冷却后即可使用。③牛粪石灰浆。用牛粪16份、熟石灰和草木灰各8份、细河沙1份，加水调制而成。制成后呈浆糊状，用时用刷子把灰浆抹在锯口上。&nbsp;</p>\r\n<p>&#12288;&#12288;三、回缩。将多年生枝剪除或锯掉一部分，留下一部分称回缩。可用于结果枝和结果枝组的更新复壮，盛果期树的新梢生长势逐渐减弱，同时有些枝条下垂，树冠中下部出现光秃现象。为了改善光照，减少大枝上的小枝数目，使养分和水分集中供应留下的枝条，回缩对恢复树势很有利。但同时应加强肥水管理，以使枝条正常生长和结果。回缩的部位和程度不同，其修剪反应也不一样，若在壮旺分枝处回缩，去除前面的下垂枝、衰弱枝，可抬高多年生枝的角度并缩短其长度，利于养分集中，能起到更新复壮作用；若在细弱分枝处回缩，则有抑制其生长势的作用，多年生枝回缩一般伤口较大，保护不好也可能削弱锯口枝的生长势。&nbsp;&nbsp;&nbsp;&nbsp;(贾士龙)</p><p></p>', '', '', 179, 22, 1382014708, 'true', '', 0),
+(23, 1, 21, 4, '0,4,', -1, -1, '', '测试', '', '', '', '', '', '', '', '本条内容仅供测试', '本条内容仅供测试，可进入后台栏目内容管理进行删除。', 'uploads/image/20131020/1382287743.png', '', 84, 23, 1382077488, 'true', '', 0),
+(24, 1, 24, 28, '0,28,', -1, -1, '', '苹果贮藏防病害 确保效益成倍翻', '', '', '', '', 'admin', '', '', '', '　　<strong></strong>苹果贮藏期病害包括生理病害和微生物病害。生理病害是因生产或贮藏条件不适或缺乏矿质元素而引起的，微生物病害是由于病原微生物侵染所致。苹果贮藏期主要病害及其防治方法如下：\r\n<p>\r\n	　　<strong>一、生理病害</strong> \r\n</p>\r\n<p>\r\n	　　1、苹果苦痘病：主要是贮藏期温度过高有关。发病初期果皮下果肉褐变，果面出现颜色稍暗的凹陷圆斑，绿色品种呈深绿色，红色品种呈紫红色，发生部位靠近果顶。贮藏初期1~2个月内发病最重。\r\n</p>\r\n<p>\r\n	　　防治方法：生长后期控制施氮量，采收后用2－6％的氯化钙或硝酸钙浸果5分钟，贮藏温度控制在0℃左右。\r\n</p>\r\n<p>\r\n	　　2、虎皮病：症状多发生在不着色部位，初期果皮呈淡黄褐色，后期逐渐变深，形成不规则微凹陷状，果皮易破裂，严重时病斑连片，呈烫伤状。苹果采收过早、成熟度较低是虎皮病发生的主要原因。\r\n</p>\r\n<p>\r\n	　　防治方法：&nbsp;①适当晚采，促进果实着色。②加强贮藏库通风，库内果箱码放不能过度密挤，以防后期温度过高。③用0.25~0.35%乙氧基喹药液喷施，还可用喷有二苯胺的药纸包果，用石蜡油纸包果也有较好的防治效果。\r\n</p>\r\n<p>\r\n	　　3、果肉褐变病：该病多是果实采收偏晚、成熟过度，贮藏温湿度及气调贮藏氧浓度过高所致。\r\n</p>\r\n<p>\r\n	　　防治方法：⑴适时采收，控制好贮藏库温湿度，防止果面结露。⑵用2~4％氯化钙液浸果等措施加以预防。\r\n</p>\r\n<p>\r\n	　　<strong>二、真菌病害</strong> \r\n</p>\r\n<p>\r\n	　　真菌病害包括轮纹病、炭疽病、青霉病和霉心病等，因为这几种病害在果实生长发育时也大量发生。\r\n</p>\r\n<p>\r\n	　　1、苹果轮纹病：为生长期主要病害，果实染病后潜伏期较长，成熟期及贮藏期高温多湿时易发病，患处有淡褐色同心轮纹，病部稍隆起。\r\n</p>\r\n<p>\r\n	　　预防办法：贮藏前要严格剔除病果，用多菌灵或甲基托布津500－1&nbsp;000倍液浸泡果实。轮纹病和炭疽病：采前可喷50%多菌灵或50%甲基托\r\n布津800倍液，对两病有较好的防治效果。贮藏前，用500~1000倍50%多菌灵或800倍50%甲基托布津药液浸泡果实，也可以用仲丁胺药或多功能\r\n保鲜纸包果。\r\n</p>\r\n<p>\r\n	　　2、炭疽病：真菌病害，生长季节借雨水传播，高温多湿条件下发病严重。初呈褐色小点，后逐步扩大，呈同心轮纹状病斑。病部稍凹陷，有苦味。\r\n</p>\r\n<p>\r\n	　　防治措施：苹果轮纹病和炭疽病均在田间已侵染病菌，生长季节应加强喷药防治。对病害重发园的果实，贮藏前用50%甲基托布津或25%多菌灵500~1&nbsp;000倍液浸果10分钟。\r\n</p>\r\n<p>\r\n	　　3、褐腐病：多发生在苹果生长后期及采收以后，病菌从伤口侵入，发病后果面先出现浅褐色软腐状小斑，随后迅速扩散，造成全果腐烂。\r\n</p>\r\n<p>\r\n	　　防治方法：生长期清除病果，防止果实裂口、机械损伤，果实近成熟时用50％多菌灵600~800倍液或50％甲基托布津700~800倍液喷施。\r\n</p>\r\n<p>\r\n	　　4、青霉病：贮藏中最常见也是危害最重的病害之一。最先发病部位局部腐烂、湿软，呈黄白色，条件适宜时发展迅速，10天后全果腐烂，有特殊霉味。空气潮湿时，病斑表面产生青绿色霉菌，病菌主要从伤口侵染。\r\n</p>\r\n<p>\r\n	　　防治措施：贮藏场所要搞好清洁卫生，贮藏前选用800~1000倍甲基托布津、多菌灵药液浸泡果实。\r\n</p>', '', '', 140, 24, 1382279177, 'true', '', 0),
+(25, 1, 24, 28, '0,28,', -1, -1, '', '科学施肥十忌', '', '', '', '', 'admin', '', '', '', '　　1、忌单施某一种化肥<br />\r\n　　理想的施肥方法是先施有机肥，然后将氮、磷、钾肥合理搭配，科学施用。&nbsp;&nbsp; &nbsp;<br />\r\n　　2、忌在中午进行根外施肥<br />\r\n　　中午气温较高，液肥喷洒后不但蒸发快，而且在作物体表不易被很好地保留，也就难以被气孔、皮孔很快吸收。<br />\r\n　　3、忌在表土浅施氮肥<br />\r\n　　将氮肥施在表土浅层，氮素受太阳光照射后很容易分解挥发。&nbsp; &nbsp;<br />\r\n　　4、忌一次过多施用高浓度肥料<br />\r\n　　不论是何种肥料，若一次施用量过大就会使作物根系出现“倒吸”现象，致使根部受到伤害。&nbsp; &nbsp;<br />\r\n　　5、忌随水撒施<br />\r\n　　磷肥、钾肥易被固定，氮肥易于挥发流失，随水撒施的肥料基本上都停留在表土，肥料利用率很低。&nbsp;&nbsp; &nbsp;<br />\r\n　　6、忌在大棚或温室内施用氨水和碳铵<br />\r\n　　因为大棚内的生态环境处于高温封闭状态，这两种肥料在高温和密闭条件下容易挥发，导致植株被熏伤，影响正常生长。&nbsp;&nbsp; &nbsp;<br />\r\n　　7、忌随意混施<br />\r\n　　不考虑肥料的性质而任意配合施用是不科学的。如果将铵态氮肥与草木灰、石灰、磷肥等碱性肥料混合施用，势必加速氮素的挥发，导致肥料浪费，还会熏坏作物。<br />\r\n　　8、忌撒施磷素化肥<br />\r\n　　磷素在土壤中移动性很小，撒施特别容易使其被土壤表层吸附固定，大大降低磷素的肥效。&nbsp;&nbsp; &nbsp;<br />\r\n　　9、忌在大雨前施肥<br />\r\n　　施肥后如遇到暴雨或阵雨，肥料很容易被雨水冲掉，造成养分流失。&nbsp;&nbsp; &nbsp;<br />\r\n　　10、忌微肥当家<br />\r\n　　施锌、钼、硼等微肥可以解决作物缺素，但如果单施微肥就会造成作物营养不良，生长发育受阻。', '', '', 140, 25, 1382279428, 'true', '', 0),
+(26, 1, 24, 28, '0,28,', -1, -1, '', '怎样根据棉花的生育特点合理施肥？', '', '', '', '', 'admin', '', '', '', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 棉花的生育特点之一，就是营养生长和生殖生长重叠时间长。从现蕾到吐絮阶段，营养生长和生殖生长并进时间长达七、八十天之久。\r\n<div>\r\n	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 因此，棉花施肥必须做到既满足根、茎、枝、叶对营养元素的需要，为棉花丰产建造足够的营养体，又要使棉株营养生长和生殖生长协调发展，方能保证优质高产。\r\n</div>\r\n<div>\r\n	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \r\n首先，应用足够数量的有机肥料做基肥，施用重过磷酸钙等磷肥做种肥，满足苗期营养临界期对养分的需要。苗期生长中心是长茎叶，根据苗情适当追施氮肥做提苗\r\n肥，对培育壮苗十分有利。地方较低，基肥较少和化肥用量不足的棉田，中后期容易出现脱肥早衰现象，应重视早追提苗肥，以利早发壮稞。肥力较高基肥较足的高\r\n产棉田，苗期不主张追肥，仅采取中耕措施，促使棉苗生长墩实，根系发育良好。\r\n</div>\r\n<div>\r\n	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \r\n现蕾以后，植株开始从营养生长期向生殖生长期过渡，仍以营养生长为主。棉株现蕾期干物质积累较快，吸收营养元素的数量逐渐增多。我国棉农的施肥经验是稳施\r\n蕾肥。这一时期的施肥要点是既要满足棉花营养生长和增枝（果）增蕾对养分的需要，又不致使土壤中积累过多的速效性氮，招致雨季（开花期）棉株徒长。从初花\r\n到盛花阶段，正是棉花营养生长和生殖生长的旺盛时期，所以是棉花吸收养分最多的时期，当棉田有少数棉株开始结铃时，应施用氮肥以利于棉铃的形成和发育。\r\n</div>\r\n<div>\r\n	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 为了保伏桃，争秋桃，增加铃重，提高产量，一般中等肥力棉田，可根据棉株长势适当补施秋桃肥，但追施的氮肥不能过多，时间不宜过晚。\r\n</div>\r\n<div>\r\n	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 目前，一些棉田，土壤供钾水平低，在生育后期，棉株由于缺钾，常呈现生理的结叶茎枯病，使铃重减轻，纤维变短，拉力减弱，这类土壤还应施用钾肥。高产棉田，在施用有机肥和氮、磷肥的基础上再施钾肥，也可进一步提高产量。\r\n</div>\r\n<br />', '', '', 178, 26, 1382279604, 'true', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_infosrc`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_infosrc` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '来源id',
+  `srcname` varchar(30) NOT NULL COMMENT '来源名称',
+  `linkurl` varchar(80) NOT NULL COMMENT '来源地址',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '来源排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_job`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_job` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '招聘信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `title` varchar(50) NOT NULL COMMENT '位岗名称',
+  `jobplace` varchar(80) NOT NULL COMMENT '工作地点',
+  `jobdescription` varchar(50) NOT NULL COMMENT '工作性质',
+  `employ` smallint(5) unsigned NOT NULL COMMENT '招聘人数',
+  `jobsex` enum('0','1','2') NOT NULL COMMENT '性别要求',
+  `treatment` varchar(50) NOT NULL COMMENT '工资待遇',
+  `usefullife` varchar(50) NOT NULL COMMENT '有效期',
+  `experience` varchar(50) NOT NULL COMMENT '工作经验',
+  `education` varchar(80) NOT NULL COMMENT '学历要求',
+  `joblang` varchar(50) NOT NULL COMMENT '言语能力',
+  `workdesc` mediumtext NOT NULL COMMENT '职位描述',
+  `content` mediumtext NOT NULL COMMENT '职位要求',
+  `orderid` mediumint(8) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `pmw_job`
@@ -3651,6 +4152,21 @@ INSERT INTO `pmw_job` (`id`, `siteid`, `title`, `jobplace`, `jobdescription`, `e
 (4, 1, '软件配置管理工程师', '北京', '技术', 3, '0', '面议', '长期', '2年以上', '本科', '较好', '（至少包含下列一项）&nbsp;<br />\r\n- 部门版本控制系统的维护&nbsp;<br />\r\n- 软件的版本控制&nbsp;<br />\r\n- 版本控制，软件构建工具的开发<br />', '<p>\r\n	- 熟悉CVS,SVN；<br />\r\n- 熟悉软件配置管理、产品数据管理的相关理论； <br />\r\n- 熟悉软件开发过程； <br />\r\n- 熟悉Linux系统基础操作和命令，及Linux环境下版本构建，软件部署； <br />\r\n- 有Python,Perl, ,Shell其中之一脚本语言编程经验者优先考虑； <br />\r\n- 有构建持续集成经验者优先。\r\n</p>', 4, 1326770633, 'true'),
 (5, 1, '高级软件工程师(Java)', '上海', '技术', 6, '0', '面议', '长期', '2年以上开发经验', '不限制', '英语四级', '- 承担商业产品业务系统功能模块的设计开发工作&nbsp;<br />\r\n- 开展Java相关技术的调研工作&nbsp;<br />\r\n- 采用敏捷的软件流程方法推进项目实施&nbsp;<br />', '<p>\r\n	- 深刻理解OOA/OOD/OOP编程思想,掌握多种常用的设计模式 <br />\r\n- 熟悉现有主流的java框架(Spring、Struts、Spring mvc、Hibernate、Ibatis、Freemarker等)的基本原理，具备基于之上研发能力<br />\r\n- 关注新技术，了解Groovy，Jruby，熟悉ROR、COC、RESTful编程风格 <br />\r\n- 热爱软件开发，编码基本功扎实，追求完美，有上进心和很强的学习能力 <br />\r\n- 有丰富的web架构设计经验，对web站点的性能调优、站点扩展和内容集成有深刻的理解 <br />\r\n- 熟悉cache原理及主流的cache框架，有集群系统的开发经验优先考虑 <br />\r\n- 有软件项目管理、企业知识管理、研发流程体系管理经验者优先考虑 <br />\r\n- 有互联网互动产品设计开发经验、企业搜索经验者优先考虑 <br />\r\n- 此职位需要三年以上的软件产品研发经验\r\n</p>', 5, 1326770671, 'true');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_lnk`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_lnk` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '快捷方式id',
+  `lnkname` varchar(30) NOT NULL COMMENT '快捷方式名称',
+  `lnklink` varchar(50) NOT NULL COMMENT '跳转链接',
+  `lnkico` varchar(50) NOT NULL COMMENT 'ico地址',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
 --
 -- 转存表中的数据 `pmw_lnk`
 --
@@ -3658,8 +4174,75 @@ INSERT INTO `pmw_job` (`id`, `siteid`, `title`, `jobplace`, `jobdescription`, `e
 INSERT INTO `pmw_lnk` (`id`, `lnkname`, `lnklink`, `lnkico`, `orderid`) VALUES
 (1, '栏目管理', 'infoclass.php', 'templates/images/infoclass_ico.png', 1),
 (2, '列表管理', 'infolist.php', 'templates/images/infolist_ico.png', 2),
-(3, '图片管理', 'infoimg.php', 'templates/images/infoimg_ico.png', 3),
-(4, '商品管理', 'goods.php', 'templates/images/goods_ico.gif', 4);
+(3, '图片管理', 'infoimg.php', 'templates/images/infoimg_ico.png', 3);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_maintype`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_maintype` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '二级类别id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '类别上级id',
+  `parentstr` varchar(50) NOT NULL COMMENT '类别上级id字符串',
+  `classname` varchar(30) NOT NULL COMMENT '类别名称',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_member`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_member` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `username` varchar(32) NOT NULL COMMENT '用户名',
+  `password` varchar(32) NOT NULL COMMENT '密码',
+  `question` varchar(50) NOT NULL COMMENT '提问',
+  `answer` varchar(50) NOT NULL COMMENT '回答',
+  `cnname` varchar(10) NOT NULL COMMENT '姓名',
+  `enname` varchar(20) NOT NULL COMMENT '英文名',
+  `avatar` varchar(100) NOT NULL COMMENT '头像',
+  `sex` tinyint(1) unsigned NOT NULL COMMENT '性别',
+  `birthtype` tinyint(1) unsigned NOT NULL COMMENT '生日类型',
+  `birth_year` varchar(10) NOT NULL DEFAULT '-1' COMMENT '生日_年',
+  `birth_month` varchar(10) NOT NULL DEFAULT '-1' COMMENT '生日_月',
+  `birth_day` varchar(10) NOT NULL DEFAULT '-1' COMMENT '生日_日',
+  `astro` varchar(10) NOT NULL DEFAULT '-1' COMMENT '星座',
+  `bloodtype` tinyint(2) NOT NULL DEFAULT '-1' COMMENT '血型',
+  `trade` varchar(10) NOT NULL DEFAULT '-1' COMMENT '行业',
+  `live_prov` varchar(10) NOT NULL DEFAULT '-1' COMMENT '现居地_省',
+  `live_city` varchar(10) NOT NULL DEFAULT '-1' COMMENT '现居地_市',
+  `live_country` varchar(15) NOT NULL DEFAULT '-1' COMMENT '现居地_区',
+  `home_prov` varchar(10) NOT NULL DEFAULT '-1' COMMENT '故乡_省',
+  `home_city` varchar(10) NOT NULL DEFAULT '-1' COMMENT '故乡_市',
+  `home_country` varchar(15) NOT NULL DEFAULT '-1' COMMENT '故乡_区',
+  `cardtype` tinyint(2) NOT NULL DEFAULT '-1' COMMENT '证件类型',
+  `cardnum` varchar(32) NOT NULL COMMENT '证件号码',
+  `intro` text NOT NULL COMMENT '个人说明',
+  `email` varchar(40) NOT NULL COMMENT '电子邮件',
+  `qqnum` varchar(20) NOT NULL COMMENT 'QQ号码',
+  `mobile` varchar(20) NOT NULL COMMENT '手机',
+  `telephone` varchar(20) NOT NULL COMMENT '固定电话',
+  `address_prov` varchar(10) NOT NULL DEFAULT '-1' COMMENT '通信地址_省',
+  `address_city` varchar(10) NOT NULL DEFAULT '-1' COMMENT '通信地址_市',
+  `address_country` varchar(15) NOT NULL DEFAULT '-1' COMMENT '通信地址_区',
+  `address` varchar(100) NOT NULL COMMENT '通信地址',
+  `zipcode` varchar(10) NOT NULL COMMENT '邮编',
+  `enteruser` set('1') NOT NULL COMMENT '认证',
+  `expval` int(10) NOT NULL COMMENT '经验值',
+  `integral` int(10) unsigned NOT NULL COMMENT '积分',
+  `regtime` int(10) unsigned NOT NULL COMMENT '注册时间',
+  `regip` varchar(20) NOT NULL COMMENT '注册IP',
+  `logintime` int(10) unsigned NOT NULL COMMENT '登陆时间',
+  `loginip` varchar(20) NOT NULL COMMENT '登陆IP',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `pmw_member`
@@ -3669,6 +4252,29 @@ INSERT INTO `pmw_member` (`id`, `username`, `password`, `question`, `answer`, `c
 (1, 'testuser', '85f0fb9cc2792a9b87e3b3facccedc40', '6', '你猜呢', '测试账号', 'TestUser', '', 0, 0, '-1', '-1', '-1', '-1', -1, '-1', '-1', '-1', '--', '-1', '-1', '--', -1, '', '', 'webmaster@phpmywind.com', '', '', '', '-1', '-1', '-1', '', '', '1', 1000, 0, 1350904403, '127.0.0.1', 1350904403, '127.0.0.1'),
 (2, 'root123', '14e1b600b1fd579f47433b88e8d85291', '', '', '', '', '', 0, 0, '-1', '-1', '-1', '-1', -1, '-1', '-1', '-1', '-1', '-1', '-1', '-1', -1, '', '', '453692612@qq.com', '', '', '', '-1', '-1', '-1', '', '', '', 10, 0, 1382002588, '192.168.1.140', 1382002642, '192.168.1.140');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_message`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_message` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '留言id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `nickname` varchar(30) NOT NULL COMMENT '昵称',
+  `contact` varchar(50) NOT NULL COMMENT '联系方式',
+  `content` text NOT NULL COMMENT '留言内容',
+  `htop` set('true') NOT NULL COMMENT '置顶',
+  `rtop` set('true') NOT NULL COMMENT '推荐',
+  `ip` char(20) NOT NULL COMMENT '留言IP',
+  `recont` text NOT NULL COMMENT '回复内容',
+  `retime` int(10) unsigned NOT NULL COMMENT '回复时间',
+  `orderid` mediumint(8) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
 --
 -- 转存表中的数据 `pmw_message`
 --
@@ -3677,6 +4283,27 @@ INSERT INTO `pmw_message` (`id`, `siteid`, `nickname`, `contact`, `content`, `ht
 (1, 1, '游客', 'QQ：10000', '站点很好很漂亮，超喜欢，赞！', '', 'true', '127.0.0.1', '感谢您的留言！', 1326770722, 1, 1326770722, 'true'),
 (2, 1, 'root123', 'ddd', 'ddd', '', '', '192.168.1.140', '', 0, 2, 1382002666, 'true'),
 (3, 1, '游客', '22', '22', '', '', '192.168.1.140', '2222', 1382076545, 3, 1382076528, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_nav`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_nav` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '导航id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '导航分类',
+  `parentstr` varchar(50) NOT NULL COMMENT '导航分类父id字符串',
+  `classname` varchar(30) NOT NULL COMMENT '导航名称',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `relinkurl` varchar(255) NOT NULL COMMENT '重写地址',
+  `picurl` varchar(100) NOT NULL COMMENT '导航图片',
+  `target` varchar(30) NOT NULL COMMENT '打开方式',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '隐藏导航',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
 
 --
 -- 转存表中的数据 `pmw_nav`
@@ -3691,24 +4318,38 @@ INSERT INTO `pmw_nav` (`id`, `siteid`, `parentid`, `parentstr`, `classname`, `li
 (33, 1, 3, '0,1,3,', '公司荣誉', 'about_gsry.php', 'about_gsry.html', '', '', 33, 'true'),
 (34, 1, 3, '0,1,3,', '企业文化', 'about_qywh.php', 'about_qywh.html', '', '', 34, 'true'),
 (35, 1, 3, '0,1,3,', '成长历程', 'about_czlc.php', 'about_czlc.html', '', '', 35, 'true'),
-(4, 1, 1, '0,1,', '业务与产品', 'product_hfyw.php', 'product_hfyw.html', '', '', 3, 'true'),
+(4, 1, 1, '0,1,', '业务与产品', 'product_hfyw.php', 'product_hfyw.html', '', '', 5, 'true'),
 (41, 1, 4, '0,1,4,', '化肥业务', 'product_hfyw.php', 'product_hfyw.html', '', '', 41, 'true'),
 (42, 1, 4, '0,1,4,', '主要产品', 'product_zycp.php', 'product_zycp.html', '', '', 42, 'true'),
 (43, 1, 4, '0,1,4,', '承担项目', 'product_cdxm.php', 'product_cdxm.html', '', '', 43, 'true'),
-(6, 1, 1, '0,1,', '留言板', 'message.php', 'message.html', '', '', 51, 'true'),
+(6, 1, 1, '0,1,', '客户留言', 'message.php', 'message.html', '', '', 51, 'true'),
 (7, 1, 54, '0,1,54,', '人才招聘', 'human_rczp.php', 'human_rczp.html', '', '', 52, 'true'),
 (52, 1, 51, '0,1,51,', '网点分布', 'net_wdfb.php', 'net_wdfb.html', '', '', 49, 'true'),
 (49, 1, 48, '0,1,48,', '服务机构', 'server_fwjg.php', 'server_fwjg.html', '', '', 46, 'true'),
 (56, 1, 1, '0,1,', '联系我们', 'contact.php', 'contact.html', '', '', 53, 'true'),
 (47, 1, 45, '0,1,45,', '行业新闻', 'news_hyxw.php', '', '', '', 45, 'true'),
 (46, 1, 45, '0,1,45,', '公司新闻', 'news_gsxw.php', '', '', '', 44, 'true'),
-(45, 1, 1, '0,1,', '新闻动态', 'news_xwmk.php', 'news_xwmk.html', '', '', 5, 'true'),
+(45, 1, 1, '0,1,', '新闻动态', 'news_xwmk.php', 'news_xwmk.html', '', '', 3, 'true'),
 (48, 1, 1, '0,1,', '农化服务', 'server_fwjg.php', 'server_fwjg.html', '', '', 6, 'true'),
 (50, 1, 48, '0,1,48,', '知识园地', 'server_zsyd.php', 'server_zsyd.html', '', '', 47, 'true'),
 (51, 1, 1, '0,1,', '销售网络', 'net_wdfb.php', 'net_wdfb.html', '', '', 7, 'true'),
 (53, 1, 51, '0,1,51,', '连锁风貌', 'net_lsfm.php', 'net_lsfm.html', '', '', 50, 'true'),
-(54, 1, 1, '0,1,', '人力资源', 'human_rczl.php', 'human_rczl.html', '', '', 8, 'true'),
+(54, 1, 1, '0,1,', '招贤纳士', 'human_rczl.php', 'human_rczl.html', '', '', 8, 'true'),
 (55, 1, 54, '0,1,54,', '人才战略', 'human_rczl.php', 'human_rczl.html', '', '', 48, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_paymode`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_paymode` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '支付方式id',
+  `classname` varchar(30) NOT NULL COMMENT '支付方式名称',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `pmw_paymode`
@@ -3717,6 +4358,20 @@ INSERT INTO `pmw_nav` (`id`, `siteid`, `parentid`, `parentstr`, `classname`, `li
 INSERT INTO `pmw_paymode` (`id`, `classname`, `orderid`, `checkinfo`) VALUES
 (1, '在线支付', 1, 'true'),
 (2, '货到付款', 2, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_postmode`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_postmode` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '配送方式id',
+  `classname` varchar(30) NOT NULL COMMENT '配送方式',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `pmw_postmode`
@@ -3729,6 +4384,19 @@ INSERT INTO `pmw_postmode` (`id`, `classname`, `orderid`, `checkinfo`) VALUES
 (4, '顺丰', 4, 'true'),
 (5, 'EMS', 5, 'true');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_site`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_site` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '站点ID',
+  `sitename` varchar(30) NOT NULL COMMENT '站点名称',
+  `sitekey` varchar(30) NOT NULL COMMENT '站点标识',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
 --
 -- 转存表中的数据 `pmw_site`
 --
@@ -3736,24 +4404,141 @@ INSERT INTO `pmw_postmode` (`id`, `classname`, `orderid`, `checkinfo`) VALUES
 INSERT INTO `pmw_site` (`id`, `sitename`, `sitekey`) VALUES
 (1, '默认站点', 'zh_CN');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_soft`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_soft` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '软件信息id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属栏目id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属栏目上级id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属栏目上级id字符串',
+  `mainid` smallint(5) NOT NULL COMMENT '二级类别id',
+  `mainpid` smallint(5) NOT NULL COMMENT '二级类别父id',
+  `mainpstr` varchar(80) NOT NULL COMMENT '二级累呗父id字符串',
+  `title` varchar(80) NOT NULL COMMENT '标题',
+  `colorval` char(10) NOT NULL COMMENT '字体颜色',
+  `boldval` char(10) NOT NULL COMMENT '字体加粗',
+  `flag` varchar(30) NOT NULL COMMENT '属性',
+  `filetype` char(4) NOT NULL COMMENT '文件类型',
+  `softtype` char(10) NOT NULL COMMENT '软件类型',
+  `language` char(10) NOT NULL COMMENT '界面语言',
+  `accredit` char(10) NOT NULL COMMENT '授权方式',
+  `softsize` varchar(10) NOT NULL COMMENT '软件大小',
+  `unit` char(4) NOT NULL COMMENT '软件大小单位',
+  `runos` varchar(50) NOT NULL COMMENT '运行环境',
+  `website` varchar(255) NOT NULL COMMENT '官方网站',
+  `demourl` varchar(255) NOT NULL COMMENT '演示地址',
+  `dlurl` varchar(255) NOT NULL COMMENT '下载地址',
+  `source` varchar(50) NOT NULL COMMENT '文章来源',
+  `author` varchar(50) NOT NULL COMMENT '作者编辑',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `keywords` varchar(50) NOT NULL COMMENT '关键字',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `content` mediumtext NOT NULL COMMENT '内容',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `picarr` text NOT NULL COMMENT '组图',
+  `hits` mediumint(8) unsigned NOT NULL COMMENT '点击次数',
+  `orderid` int(10) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  `delstate` set('true') NOT NULL COMMENT '删除状态',
+  `deltime` int(10) unsigned NOT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
 --
 -- 转存表中的数据 `pmw_soft`
 --
+-- --------------------------------------------------------
 
-INSERT INTO `pmw_soft` (`id`, `siteid`, `classid`, `parentid`, `parentstr`, `mainid`, `mainpid`, `mainpstr`, `title`, `colorval`, `boldval`, `flag`, `filetype`, `softtype`, `language`, `accredit`, `softsize`, `unit`, `runos`, `website`, `demourl`, `dlurl`, `source`, `author`, `linkurl`, `keywords`, `description`, `content`, `picurl`, `picarr`, `hits`, `orderid`, `posttime`, `checkinfo`, `delstate`, `deltime`) VALUES
-(1, 1, 11, 0, '0,', -1, -1, '', '腾讯QQ', '', '', '', '.exe', '国产软件', '简体中文', '免费软件', '51.3', 'MB', 'Win7/WinXP/WinNT', 'http://im.qq.com/', 'http://im.qq.com/', 'http://im.qq.com/', '', 'admin', '', 'QQ,QQ2012,腾讯QQ2012', '免费的即时通讯平台，带来更多的沟通乐趣。', '腾讯推出的即时通讯工具。支持在线聊天、视频电话、点对点断点续传文件、共享文件、网络硬盘、自定义面板、QQ邮箱等多种功能。免费的通讯平台，给您带来更多沟通乐趣。', 'templates/default/images/imgdata/qqlogo.gif', '', 132, 1, 1346030443, 'true', '', 0),
-(2, 1, 11, 0, '0,', -1, -1, '', '掌上百度', '', '', '', '.rar', '国产软件', '简体中文', '免费软件', '2.8', 'MB', 'Win7/WinXP/WinNT', 'http://shouji.baidu.com/', 'http://shouji.baidu.com/zhangbai/indexb.html', 'http://shouji.baidu.com/zhangbai/indexb.html', '', 'admin', '', '', '掌上百度是百度公司专门为手机用户打造的一款客户端软件。', '掌上百度是百度公司专门为手机用户打造的一款客户端软件。除了强大的无线搜索功能外，还整合了百度贴吧、知道这两个最大的社区平台。即使没有电脑，你也可以轻松享用百度的产品和服务，绝对是你出门在外、上下班途中、课间休闲时的绝佳伴侣！<br />\r\n<br />\r\n掌上百度将带给你全新的手机上网的体验。界面简洁、清晰，完全免费。<br />\r\n<br />\r\n掌上百度专门为手机用户精心设计了人性化的功能，你可以直接拍照上传至贴吧及知道，用于发贴、提问，并且全过程都没有验证码的干扰。有了掌上百度，你可以不受终端限制、随时随地、轻松自如地和兴趣相投的网友讨论交流。<br />\r\n<br />\r\n掌上百度还有许多贴心实用的小功能，比如实时更新当前最新最热的关键词；根据你当前所在位置，实时更新所在城市天气；保留你的搜索历史、关键词，减少手机输入带来的不便……<br />\r\n<br />\r\n马上下载掌上百度，体验一下无“线”的乐趣吧~！', 'templates/default/images/imgdata/mobliebaidulogo.jpg', '', 241, 2, 1346033182, 'true', '', 0);
+--
+-- 表的结构 `pmw_uploads`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_uploads` (
+  `id` mediumint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '上传信息id',
+  `name` varchar(30) NOT NULL COMMENT '文件名称',
+  `path` varchar(100) NOT NULL COMMENT '文件路径',
+  `size` int(10) NOT NULL COMMENT '文件大小',
+  `type` enum('image','soft','media') NOT NULL COMMENT '文件类型',
+  `posttime` int(10) NOT NULL COMMENT '上传日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `pmw_uploads`
+--
+
+INSERT INTO `pmw_uploads` (`id`, `name`, `path`, `size`, `type`, `posttime`) VALUES
+(1, '1382257011.png', 'uploads/image/20131020/1382257011.png', 112963, 'image', 1382255539),
+(2, '1382287743.png', 'uploads/image/20131020/1382287743.png', 12452, 'image', 1382277913);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_usercomment`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_usercomment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论id',
+  `aid` int(10) unsigned NOT NULL COMMENT '信息id',
+  `molds` tinyint(1) unsigned NOT NULL COMMENT '信息类型',
+  `uid` int(10) NOT NULL COMMENT '用户id',
+  `uname` varchar(20) NOT NULL COMMENT '用户名',
+  `body` text NOT NULL COMMENT '评论内容',
+  `reply` text NOT NULL COMMENT '回复内容',
+  `link` varchar(200) NOT NULL COMMENT '评论网址',
+  `time` int(10) unsigned NOT NULL COMMENT '评论时间',
+  `ip` varchar(30) NOT NULL COMMENT '评论ip',
+  `isshow` tinyint(1) unsigned NOT NULL COMMENT '是否显示',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `pmw_usercomment`
 --
 
 INSERT INTO `pmw_usercomment` (`id`, `aid`, `molds`, `uid`, `uname`, `body`, `reply`, `link`, `time`, `ip`, `isshow`) VALUES
-(1, 20, 1, -1, '游客', '点撒爱上', '', 'http://localhost/PHPMyWind_v4.6.5/newsshow.php?cid=21&id=20', 1382009948, '127.0.0.1', 1),
-(2, 20, 1, -1, '游客', '费的佛挡杀佛的是非得失', '', 'http://localhost/PHPMyWind_v4.6.5/newsshow.php?cid=21&id=20', 1382009954, '127.0.0.1', 1),
-(3, 20, 1, -1, '游客', '222', '', 'http://localhost/PHPMyWind_v4.6.5/newsshow.php?cid=21&id=20', 1382010340, '127.0.0.1', 1),
-(4, 20, 1, -1, '游客', 'fdsfsafsadf', '', 'http://localhost/PHPMyWind_v4.6.5/newsshow.php?cid=21&id=20&pid=46', 1382013264, '127.0.0.1', 1),
-(5, 21, 1, -1, '游客', '11', '', 'http://192.168.1.140/PHPMyWind_v4.6.5/newsshow.php?cid=22&id=21', 1382076105, '192.168.1.140', 1);
+(6, 26, 1, -1, '游客', '我也觉得不错哈~受教了', '', 'http://localhost/mywind/newsshow.php?cid=24&id=26', 1382279698, '0.0.0.0', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_userfavorite`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_userfavorite` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '收藏id',
+  `aid` int(10) unsigned NOT NULL COMMENT '信息id',
+  `molds` tinyint(1) unsigned NOT NULL COMMENT '信息类型',
+  `uid` int(10) unsigned NOT NULL COMMENT '用户id',
+  `uname` varchar(20) NOT NULL COMMENT '用户名',
+  `link` varchar(200) NOT NULL COMMENT '收藏网址',
+  `time` int(10) unsigned NOT NULL COMMENT '评论时间',
+  `ip` varchar(30) NOT NULL COMMENT '评论ip',
+  `isshow` tinyint(1) unsigned NOT NULL COMMENT '是否显示',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_usergroup`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_usergroup` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户组id',
+  `groupname` varchar(30) NOT NULL COMMENT '用户组名称',
+  `expvala` int(11) NOT NULL COMMENT '用户组经验介于a',
+  `expvalb` int(11) NOT NULL COMMENT '用户组经验介于b',
+  `stars` int(10) unsigned NOT NULL COMMENT '星星数',
+  `color` varchar(10) NOT NULL COMMENT '头衔颜色',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `pmw_usergroup`
@@ -3767,12 +4552,64 @@ INSERT INTO `pmw_usergroup` (`id`, `groupname`, `expvala`, `expvalb`, `stars`, `
 (5, '高级会员', 501, 1000, 12, ''),
 (6, '金牌会员', 1001, 3000, 16, '');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_vote`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_vote` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '投票id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `title` varchar(30) NOT NULL COMMENT '投票标题',
+  `content` text NOT NULL COMMENT '投票描述',
+  `starttime` int(10) unsigned NOT NULL COMMENT '开始时间',
+  `endtime` int(10) unsigned NOT NULL COMMENT '结束时间',
+  `isguest` enum('true','false') NOT NULL COMMENT '游客投票',
+  `isview` enum('true','false') NOT NULL COMMENT '查看投票',
+  `intval` int(10) unsigned NOT NULL COMMENT '投票间隔',
+  `isradio` tinyint(1) unsigned NOT NULL COMMENT '是否多选',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
 --
 -- 转存表中的数据 `pmw_vote`
 --
 
 INSERT INTO `pmw_vote` (`id`, `siteid`, `title`, `content`, `starttime`, `endtime`, `isguest`, `isview`, `intval`, `isradio`, `orderid`, `posttime`, `checkinfo`) VALUES
 (1, 1, '您是从哪得知本站的？', '茫茫网海，您的来访让我们深感高兴。', 0, 0, 'true', 'true', 60, 2, 1, 1326863548, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_votedata`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_votedata` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '投票数据id',
+  `voteid` smallint(6) unsigned NOT NULL COMMENT '投票id',
+  `optionid` text NOT NULL COMMENT '选票id',
+  `userid` int(10) unsigned NOT NULL COMMENT '投票人id',
+  `posttime` int(10) unsigned NOT NULL COMMENT '投票时间',
+  `ip` varchar(30) NOT NULL COMMENT '投票ip',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_voteoption`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_voteoption` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '投票选项id',
+  `voteid` smallint(6) unsigned NOT NULL COMMENT '投票id',
+  `options` varchar(30) NOT NULL COMMENT '投票选项',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `pmw_voteoption`
@@ -3784,17 +4621,34 @@ INSERT INTO `pmw_voteoption` (`id`, `voteid`, `options`) VALUES
 (3, 1, '朋友介绍'),
 (4, 1, '其他');
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_webconfig`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_webconfig` (
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `varname` varchar(50) NOT NULL COMMENT '变量名称',
+  `varinfo` varchar(80) NOT NULL COMMENT '参数说明',
+  `vargroup` smallint(5) unsigned NOT NULL COMMENT '所属组',
+  `vartype` char(10) NOT NULL COMMENT '变量类型',
+  `varvalue` text NOT NULL COMMENT '变量值',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  PRIMARY KEY (`varname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 --
 -- 转存表中的数据 `pmw_webconfig`
 --
 
 INSERT INTO `pmw_webconfig` (`siteid`, `varname`, `varinfo`, `vargroup`, `vartype`, `varvalue`, `orderid`) VALUES
-(1, 'cfg_webname', '网站名称', 0, 'string', '我的网站', 1),
+(1, 'cfg_webname', '网站名称', 0, 'string', '陕西农科化肥有限公司', 1),
 (1, 'cfg_weburl', '网站地址', 0, 'string', 'http://localhost', 2),
-(1, 'cfg_webpath', '网站目录', 0, 'string', '/PHPMyWind_v4.6.5', 3),
+(1, 'cfg_webpath', '网站目录', 0, 'string', '/mywind', 3),
 (1, 'cfg_author', '网站作者', 0, 'string', '', 4),
-(1, 'cfg_generator', '程序引擎', 0, 'string', 'PHPMyWind CMS', 5),
-(1, 'cfg_keyword', '关键字设置', 0, 'string', '农科化肥，陕西农科，陕西农科化肥有限公司', 6),
+(1, 'cfg_generator', '程序引擎', 0, 'string', 'MyWind CMS', 5),
+(1, 'cfg_keyword', '关键字设置', 0, 'string', '农科化肥，陕西农科，陕西农科化肥有限公司，化肥', 6),
 (1, 'cfg_description', '网站描述', 0, 'bstring', '陕西农科化肥有限公司', 7),
 (1, 'cfg_copyright', '版权信息', 0, 'bstring', '版权所有 （C） 陕西农科化肥有限公司\r\n<br>\r\n地址：西安市高新区沣惠南路18号西格玛大厦5层 邮编：710075\r\n<br>\r\n电话：029-82301199 传真：029-82301188\r\n<a target="_blank" href="http://www.miibeian.gov.cn/">陕ICP备07011665号</a>', 8),
 (1, 'cfg_hotline', '客服热线', 0, 'string', '029-82301199', 9),
@@ -3840,6 +4694,28 @@ INSERT INTO `pmw_webconfig` (`siteid`, `varname`, `varinfo`, `vargroup`, `vartyp
 (1, 'cfg_alipay_partner', '支付宝合作身份者id', 4, 'string', '', 92),
 (1, 'cfg_alipay_key', '支付宝安全检验码', 4, 'string', '', 93);
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_weblink`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_weblink` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '友情链接id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `classid` smallint(5) unsigned NOT NULL COMMENT '所属类别id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '所属类别父id',
+  `parentstr` varchar(80) NOT NULL COMMENT '所属类别父id字符串',
+  `webname` varchar(30) NOT NULL COMMENT '网站名称',
+  `webnote` varchar(200) NOT NULL COMMENT '网站描述',
+  `picurl` varchar(100) NOT NULL COMMENT '缩略图片',
+  `linkurl` varchar(255) NOT NULL COMMENT '跳转链接',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列排序',
+  `posttime` int(10) unsigned NOT NULL COMMENT '更新时间',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
 --
 -- 转存表中的数据 `pmw_weblink`
 --
@@ -3851,6 +4727,23 @@ INSERT INTO `pmw_weblink` (`id`, `siteid`, `classid`, `parentid`, `parentstr`, `
 (4, 1, 1, 0, '0,', '数字网', '数字网', 'templates/default/images/fl_szw.gif', 'http://www.data35.com', 4, 1381978628, 'true'),
 (7, 1, 1, 0, '0,', '云天化集团', '云天化集团', 'templates/default/images/fl_thjt.gif', 'http://www.yth.com.cn', 7, 1381979520, 'true'),
 (8, 1, 1, 0, '0,', '浙江农资集团', '浙江农资集团', 'templates/default/images/fl_zjnz.gif', 'http://www.zjamp.com', 8, 1381979914, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pmw_weblinktype`
+--
+
+CREATE TABLE IF NOT EXISTS `pmw_weblinktype` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '友情链接类型id',
+  `siteid` smallint(5) unsigned NOT NULL DEFAULT '1' COMMENT '站点id',
+  `parentid` smallint(5) unsigned NOT NULL COMMENT '类别父id',
+  `parentstr` varchar(50) NOT NULL COMMENT '类别父id字符串',
+  `classname` varchar(30) NOT NULL COMMENT '类别名称',
+  `orderid` smallint(5) unsigned NOT NULL COMMENT '排列顺序',
+  `checkinfo` enum('true','false') NOT NULL COMMENT '审核状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `pmw_weblinktype`

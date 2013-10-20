@@ -13,7 +13,7 @@ $(function(){
 		$(".notewarn").fadeOut();
 	});
 
-	$("#showad").html('<iframe src="showad.php" width="100%" height="25" scrolling="no" frameborder="0" allowtransparency="true"></iframe>');
+//	$("#showad").html('<iframe src="showad.php" width="100%" height="25" scrolling="no" frameborder="0" allowtransparency="true"></iframe>');
 });
 </script>
 </head>
@@ -22,6 +22,7 @@ $(function(){
 	<div class="refurbish"><span class="title">官方公告</span><span class="reload"><a href="javascript:location.reload();">刷新</a></span></div>
 	<div class="home_info">
 		<div id="showad">
+		<strong>如果您的管理您的网站过程中遇到问题或者程序代码出现错误时烦请及时告知，我们会在第一时间内和您协商解决。</strong>
 		</div>
 	</div>
 </div>
@@ -115,19 +116,21 @@ $(function(){
 			<div class="title" style="border-top-color:<?php $border_color = array('#fcdf1f','#85cb20','#01b8f4','#f79d00');echo $border_color[mt_rand(0,3)]; ?>">开发团队</div>
 			<ul class="cont">
 				<li><strong>程序开发及交互设计</strong>：<br />
-				<i>Feng</i>, <i>Adu</i></li>
-				<li><strong>荣誉开发组</strong>：<br />
-				<i>奋斗</i>, <i>老徐</i>, <i>CHurricane</i>, <i>火爆浪子</i>, <i>老A</i>, <i>麦子</i></li>
+				<i><a href="mailto:jintaozhao@qq.com?subject=Rocky哥，我有项目需要您来开发&body=Rocky，您好：<br>最近我们有个新的项目急需开发人员来实现，希望您能帮助我们。">Rocky</a></i>, <i>小奎</i></li>
 				<li><strong>鸣谢</strong>：<br />
-			    <i>兔饭饭</i>, <i>游鱼</i>, <i>螺丝钉</i>, <i>薛</i>, <i>风青云</i>, <i>上杉达也</i>, <i>Xyao</i>, <i>Lucifer</i>, <i>leaves</i>, <i>Long</i></li>
-				<li class="btn"><a href="help.php" class="devhelp">开发帮助</a><a href="http://phpmywind.com/bbs/" target="_blank" class="fbmsg">给我们留言</a></li>
+			    <i>老师们曾经的教诲<i>,互联网资源</i>, <i>OsChina开源社区……</i>
+			    </li>
+			    <br>
+			    <li>在本项目开发过程中很多不知名的朋友提供了不少无偿帮助，在此感谢他们的无私奉献，让我们一起弘扬爱的精神。</li>
+			    
+<!--				<li class="btn"><a href="help.php" class="devhelp">开发帮助</a><a href="mailto:jintaozhao@qq.com" class="fbmsg">给我们电邮</a></li>-->
 			</ul>
 		</div>
 	</div>
 	<div class="cl"></div>
 </div>
 <div class="notewarn"> <span class="close"><a href="javascript:;"></a></span>
-	<div>显示分辨率 1360*768 显示效果最佳，建议使用新版浏览器；敬请您将在使用中发现的问题或者不适提交给我们，以便改进 <a href="http://phpmywind.com/bbs/" target="_blank" class="text">点击提交反馈</a></div>
+	<div>显示分辨率 1360*768 显示效果最佳，建议使用新版浏览器；敬请您将在使用中发现的问题或者不适提交给我们，以便改进 <a href="mailto:jintaozhao@qq.com" class="text">点击提交反馈</a></div>
 </div>
 </body>
 </html>

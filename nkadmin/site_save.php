@@ -38,7 +38,7 @@ if($action == 'add')
 		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_generator_$site_key','程序引擎','0','string','PHPMyWind CMS','5');
 		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_keyword_$site_key','关键字设置','0','string','','6');
 		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_description_$site_key','网站描述','0','bstring','','7');
-		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_copyright_$site_key','版权信息','0','bstring','Copyright © 2010 - 2013 phpMyWind.com All Rights Reserved','8');
+		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_copyright_$site_key','版权信息','0','bstring','Copyright © 2010 - 2013 nkhf.com.cn All Rights Reserved','8');
 		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_icp_$site_key','备案编号','0','string','','9');
 		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_webswitch_$site_key','启用站点','0','bool','$webswitch','10');
 		INSERT INTO `#@__webconfig` VALUES('$newsiteid','cfg_switchshow_$site_key','关闭说明','0','bstring','对不起，网站维护，请稍后登陆。<br />网站维护期间对您造成的不便，请谅解！','11');";

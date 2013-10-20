@@ -55,8 +55,8 @@
 					列表信息管理</span> <span>
 					<input type="checkbox" name="model[]" value="infoimg" />
 					图片信息管理</span> <span>
-					<input type="checkbox" name="model[]" value="soft" />
-					软件下载管理</span> <span>
+<!--					<input type="checkbox" name="model[]" value="soft" />-->
+<!--					软件下载管理</span> <span>-->
 					<input type="checkbox" name="model[]" value="fragment" />
 					碎片数据管理</span> <span>
 					<input type="checkbox" name="model[]" value="diymenu" />
